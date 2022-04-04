@@ -10,4 +10,4 @@ Thore: Thor core, a tiny OS
 
 Kakan: A programming language
 
-Jyocc: A compiler
+jcc: A compiler
