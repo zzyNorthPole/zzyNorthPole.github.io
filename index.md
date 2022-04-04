@@ -1,4 +1,4 @@
-# Zhu Zhuo-Yuan
+# Research
 
 ## Projects
 
@@ -8,6 +8,6 @@ LPU: Lim Processing Unit
 
 Thore: Thor core, a tiny OS
 
-Kakan: A programming language
+Kaken: A programming language
 
 jcc: A compiler
