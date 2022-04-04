@@ -1,5 +1,3 @@
-# Research
-
 ## Projects
 
 WEMU: a simulator of CPU in Wuhan University
