@@ -1,8 +1,6 @@
-# Zhu Zhuo-Yuan
+# Research
 
-## Research
-
-### Projects
+## Projects
 
 WEMU: A simulator of CPU
 
