@@ -26,7 +26,7 @@
 <meta property="og:description" content="LCT概述">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-24T01:25:28.000Z">
-<meta property="article:modified_time" content="2023-04-23T14:48:01.528Z">
+<meta property="article:modified_time" content="2023-04-23T15:26:12.502Z">
 <meta property="article:author" content="ZHU Zhuo-Yuan">
 <meta property="article:tag" content="LCT">
 <meta property="article:tag" content="template">
@@ -337,8 +337,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-04-23 22:48:01</span>
-            <span class="mobile">2023-04-23 22:48</span>
+            <span class="desktop">2023-04-23 23:26:12</span>
+            <span class="mobile">2023-04-23 23:26</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -388,10 +388,7 @@ mjx-container[display="true"] + br {
             
 
             <div class="article-content markdown-body">
-                <p>LCT概述</p>
-<span id="more"></span>
-
-<p>lct这种数据结构，维护的是一棵树的连通性，因此在维护图的连通性时，需要对之进行相应的修改。</p>
+                <p>lct这种数据结构，维护的是一棵树的连通性，因此在维护图的连通性时，需要对之进行相应的修改。</p>
 <p>首先要明确，lct是另一种形式上的树链剖分，即实链剖分。对于每一个父亲而言，其左右儿子与之处于同一条实链中；而对于每一个儿子而言，其父亲不一定与之处于同一条实链中。我们通过动态修改这种实链与虚链，来维护结构，寻找答案。</p>
 <p>其次，在同一棵splay中维护的数据，左儿子对应的是原树中的祖先节点，右儿子对应的是原树中实链上的后继节点，这是lct维护的根本内容。明确这一点是理解lct各种操作的前提。</p>
 <p>为了适配lct，我们需要对splay树操作中的rot和splay操作进行适当的修改。</p>
@@ -434,7 +431,7 @@ mjx-container[display="true"] + br {
         <li><strong>Created at:</strong> 2023-01-24 09:25:28</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-04-23 22:48:01
+                <strong>Updated at:</strong> 2023-04-23 23:26:12
             </li>
         
         <li>
