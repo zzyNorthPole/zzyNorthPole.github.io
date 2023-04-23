@@ -18,28 +18,28 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="Cache的一般设计两个相关性： 时间相关性：如果一个数据现在被访问了，那么它以后很可能还会被访问； 空间相关性：如果一个数据现在被访问了，那么它周围的数据在以后有可能也会被访问。  L1 Cache包括两个物理的存在，指令Cache(I-Cache)和数据Cache(D-Cache)。最靠近处理器，是流水线的一部分，需要和处理器保持近似相等的速度，这注定了他的容量不能够很大，一般适用SRAM来实">
+        <meta name="description" content="cache设计，摘自姚永斌《超标量处理器设计》">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cache">
 <meta property="og:url" content="https://zzynorthpole.github.io/2023/01/22/cache/index.html">
 <meta property="og:site_name" content="zzyNorthPole&#39;s blog">
-<meta property="og:description" content="Cache的一般设计两个相关性： 时间相关性：如果一个数据现在被访问了，那么它以后很可能还会被访问； 空间相关性：如果一个数据现在被访问了，那么它周围的数据在以后有可能也会被访问。  L1 Cache包括两个物理的存在，指令Cache(I-Cache)和数据Cache(D-Cache)。最靠近处理器，是流水线的一部分，需要和处理器保持近似相等的速度，这注定了他的容量不能够很大，一般适用SRAM来实">
+<meta property="og:description" content="cache设计，摘自姚永斌《超标量处理器设计》">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://zzynorthpole.github.io/cache/2.1.png">
-<meta property="og:image" content="https://zzynorthpole.github.io/cache/2.2.png">
-<meta property="og:image" content="https://zzynorthpole.github.io/cache/2.4.png">
-<meta property="og:image" content="https://zzynorthpole.github.io/cache/2.6.png">
-<meta property="og:image" content="https://zzynorthpole.github.io/cache/2.7.png">
-<meta property="og:image" content="https://zzynorthpole.github.io/cache/2.8.png">
-<meta property="og:image" content="https://zzynorthpole.github.io/cache/2.9.png">
-<meta property="og:image" content="https://zzynorthpole.github.io/cache/2.10.png">
-<meta property="og:image" content="https://zzynorthpole.github.io/cache/2.11.png">
+<meta property="og:image" content="https://zzynorthpole.github.io/image/cache/2.1.png">
+<meta property="og:image" content="https://zzynorthpole.github.io/image/cache/2.2.png">
+<meta property="og:image" content="https://zzynorthpole.github.io/image/cache/2.4.png">
+<meta property="og:image" content="https://zzynorthpole.github.io/image/cache/2.6.png">
+<meta property="og:image" content="https://zzynorthpole.github.io/image/cache/2.7.png">
+<meta property="og:image" content="https://zzynorthpole.github.io/image/cache/2.8.png">
+<meta property="og:image" content="https://zzynorthpole.github.io/image/cache/2.9.png">
+<meta property="og:image" content="https://zzynorthpole.github.io/iamge/cache/2.10.png">
+<meta property="og:image" content="https://zzynorthpole.github.io/image/cache/2.11.png">
 <meta property="article:published_time" content="2023-01-22T12:32:17.000Z">
-<meta property="article:modified_time" content="2023-04-23T12:29:13.347Z">
+<meta property="article:modified_time" content="2023-04-23T13:48:31.190Z">
 <meta property="article:author" content="ZHU Zhuo-Yuan">
 <meta property="article:tag" content="cache">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zzynorthpole.github.io/cache/2.1.png">
+<meta name="twitter:image" content="https://zzynorthpole.github.io/image/cache/2.1.png">
     
     <!--- Icon Part-->
     <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
@@ -346,8 +346,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-04-23 20:29:13</span>
-            <span class="mobile">2023-04-23 20:29</span>
+            <span class="desktop">2023-04-23 21:48:31</span>
+            <span class="mobile">2023-04-23 21:48</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -393,10 +393,13 @@ mjx-container[display="true"] + br {
             
 
             <div class="article-content markdown-body">
-                <h2 id="Cache的一般设计"><a href="#Cache的一般设计" class="headerlink" title="Cache的一般设计"></a>Cache的一般设计</h2><p>两个相关性：</p>
+                <p>cache设计，摘自姚永斌《超标量处理器设计》</p>
+<span id="more"></span>
+
+<h2 id="Cache的一般设计"><a href="#Cache的一般设计" class="headerlink" title="Cache的一般设计"></a>Cache的一般设计</h2><p>两个相关性：</p>
 <p>时间相关性：如果一个数据现在被访问了，那么它以后很可能还会被访问；</p>
 <p>空间相关性：如果一个数据现在被访问了，那么它周围的数据在以后有可能也会被访问。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="/cache/2.1.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/image/cache/2.1.png"></p>
 <p>L1 Cache包括两个物理的存在，指令Cache(I-Cache)和数据Cache(D-Cache)。最靠近处理器，是流水线的一部分，需要和处理器保持近似相等的速度，这注定了他的容量不能够很大，一般适用SRAM来实现。</p>
 <p>L2 Cache则是指令和数据共享，它的主要功能是为了尽量保存更多的内容。在多核的环境中，L2 Cache可能是多核之间共享的，但L1 Cache是每个核私有的。</p>
 <p>在超标量处理器中，对Cache有更特殊的需求。对I-Cache来说，需要每周期读取多条指令，但除非遇到预测跳转的分支指令时，I-Cache的延迟才会对性能造成影响；</p>
@@ -406,7 +409,7 @@ mjx-container[display="true"] + br {
 <p>Cache line：一个Tag和它对应的所有数据组成的一行；</p>
 <p>Cache data block：Cache line中的数据部分；</p>
 <p>Cache Set：如果一个数据可以存储在Cache中的多个地方，这些被同一个地址找到的多个Cache line称为Cache Set。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="/cache/2.2.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/image/cache/2.2.png"></p>
 <p>Cache有三种主要的实现方式，直接映射(direct-mapped) Cache，组相连(set-associative) Cache和全相连(fully-associative) Cache。</p>
 <p>对于物理内存的一个数据来说，</p>
 <p>如果在Cache中只有一个地方可以容纳它，它就是直接映射的Cache；</p>
@@ -431,28 +434,28 @@ mjx-container[display="true"] + br {
 <p>但是所有Index相同的地址都会寻址到这个Cache line，因此在Cache line中还有Tag部分用来和地址中的Tag进行比较。</p>
 <p>在一个Cache line中有很多个数据，通过存储器地址中的Block Offset部分可以找到真正想要的数据，定位到每个字节。</p>
 <p>在Cache line中还有一个有效位(valid)，用来标记这个Cache line是否保存着有效的数据，只有在之前被访问过的存储器地址，它的数据才会存在于对应的Cache line中，相应的有效位才会被置为1.</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="/cache/2.4.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/image/cache/2.4.png"></p>
 <ol start="2">
 <li>组相连</li>
 </ol>
 <p>组相连(set-associative)的方式是为了解决直接映射结构Cache的不足而提出的，存储器中的一个数据可以存放在多个Cache line中。对于一个组相连结构的Cache而言，如果一个数据可以放在n个位置，则称这个Cache是n路组相连的Cache(n-way set-associative Cache)。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="/cache/2.6.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/image/cache/2.6.png"></p>
 <p>这种结构使用存储器地址的Index部分对Cache进行寻址，此时可以得到两个Cache line，这两个Cahce line称为一个Cache Set，然后通过比较Tag的结果来确定哪个Cache line才是最终需要的，如果都不相等，那么就发生了Cache缺失。</p>
 <p>这种Cache的实现方式较直接映射结构的Cache延迟会更大，有时甚至要将Cache流水化，以减少对处理器周期时间的影响。虽然导致load指令的延迟增加，但是能够显著减少Cache缺失发生的频率。</p>
 <p>在实际实现中，Tag和Data部分是分开放置的，称为Tag SRAM和Data SRAM，可以同时访问这两个部分，称为并行访问；如果先访问Tag SRAM再访问Data SRAM，这种方式称为串行访问。</p>
 <p>对于并行访问的结构，当Tag部分的某个地址被读取的同时，这个地址在Data部分相应的所有数据也会被读取出来，并送到一个多路选择器上，这个多路选择器受到Tag比较结果的控制，选出赌赢的Data block，然后根据存储器地址中Block Offset的值，选择出合适的字节，一般将选择字节的这个过程称为数据对齐。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="/cache/2.7.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/image/cache/2.7.png"></p>
 <p>Cache的访问一般都是处理器中的关键路径(critical path)，如果想使处理器运行在比较高的频率下，Cache的访问就需要使用流水线。对于I-Cache，流水线结构不会有太大的影响，D-Cache则会增大load指令的延迟。</p>
 <p>在并行访问的结构中使用Cache流水线：</p>
 <p>流水线的地址计算阶段计算(Address Calculation)得出存储器的地址；</p>
 <p>Disambiguation阶段对load/store指令之间存在的相关性进行检查；</p>
 <p>在下个流水阶段(Cache Access)直接并行地访问Tag SRAM和Data SRAM，并用Tag比较的结果对输出的数据进行选择；</p>
 <p>最后一个流水线阶段(Result Drive)，使用存储器地址中的block offset值，从数据部分给出的data block中选出最终需要的数据。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="/cache/2.8.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/image/cache/2.8.png"></p>
 <p>对于串行访问方法来说，首先对Tag SRAM进行访问，根据Tag比较的结果，就可以知道数据部分中，哪一路的数据是需要被访问的，此时可以直接访问这一路的数据。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="/cache/2.9.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/image/cache/2.9.png"></p>
 <p>流水化处理：</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="/cache/2.10.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/iamge/cache/2.10.png"></p>
 <p>这种方式降低了访问Tag SRAM和Data SRAM的延迟，因为此时已经不需要多路选择器，但是Cache的访问增加一个周期，增大了load指令的延迟。</p>
 <p>对于超标量处理器来说，当Cache的访问处于处理器的关键路径上时，可以将访问Cache的这段时间通过填充其他的指令而掩盖其阿里，使用串行访问的方式来提高时钟频率较优；</p>
 <p>对于普通的顺序执行的处理器来说，访问Cache如果增加一个周期，因为无法对指令进行调度，可能会引起处理器性能的降低，因此使用并行访问的方式就是一种比较合理的选择。</p>
@@ -461,7 +464,7 @@ mjx-container[display="true"] + br {
 </ol>
 <p>在全相连(fully-associative)的方式中，对于一个存储器地址来说，他的数据可以放在任意一个Cache line中，因此不再有Index部分，而是直接在整个Cache中进行Tag比较。这其实就是内容寻址的存储器(CAM)。实际当中处理器使用全相连结构的Cache时，都是使用CAM来存储Tag值，普通的SRAM来存储数据。CAM中的某一行被寻址到时，SRAM中对应的行也将会被找到，从而SRAM可以直接输出对应的数据。</p>
 <p>全相连结构的Cache有着最大的灵活度，延迟也最大，因此一般不会有很大的容量，TLB就是其中的重要例子。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="/cache/2.11.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/image/cache/2.11.png"></p>
 <h3 id="Cache的写入"><a href="#Cache的写入" class="headerlink" title="Cache的写入"></a>Cache的写入</h3><p>写通(Write Through)：当数据写到D-Cache的同时，也写到下级存储器中；</p>
 <p>写回(Write Back)：数据被写到D-Cache后，只是将被写入的Cache Line做一个记号，并不将这个数据写到更下级的存储器中，只有当Cache中这个被标记的line要被替换时，才将它写到下级存储器中；被标记的记号称为脏(dirty)状态。</p>
 
@@ -476,7 +479,7 @@ mjx-container[display="true"] + br {
         <li><strong>Created at:</strong> 2023-01-22 20:32:17</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-04-23 20:29:13
+                <strong>Updated at:</strong> 2023-04-23 21:48:31
             </li>
         
         <li>
@@ -525,10 +528,10 @@ mjx-container[display="true"] + br {
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/01/22/shortest-path-dp-luogu3953/"
+                            href="/2023/01/22/luogu3953/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">shortest_path &amp; dp &amp; luogu3953</span>
+                                    <span class="post-nav-title-item">luogu3953</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
