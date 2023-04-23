@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="zzyNorthPole">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://github.com/zzyNorthPole/zzyNorthPole.github.io/2023/01/22/cache/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="Cache的一般设计两个相关性： 时间相关性：如果一个数据现在被访问了，那么它以后很可能还会被访问； 空间相关性：如果一个数据现在被访问了，那么它周围的数据在以后有可能也会被访问。  L1 Cache包括两个物理的存在，指令Cache(I-Cache)和数据Cache(D-Cache)。最靠近处理器，是流水线的一部分，需要和处理器保持近似相等的速度，这注定了他的容量不能够很大，一般适用SRAM来实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cache">
+<meta property="og:url" content="https://github.com/zzyNorthPole/zzyNorthPole.github.io/2023/01/22/cache/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Cache的一般设计两个相关性： 时间相关性：如果一个数据现在被访问了，那么它以后很可能还会被访问； 空间相关性：如果一个数据现在被访问了，那么它周围的数据在以后有可能也会被访问。  L1 Cache包括两个物理的存在，指令Cache(I-Cache)和数据Cache(D-Cache)。最靠近处理器，是流水线的一部分，需要和处理器保持近似相等的速度，这注定了他的容量不能够很大，一般适用SRAM来实">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/zzyNorthPole/zzyNorthPole.github.io/cache/2.1.png">
+<meta property="og:image" content="https://github.com/zzyNorthPole/zzyNorthPole.github.io/cache/2.2.png">
+<meta property="og:image" content="https://github.com/zzyNorthPole/zzyNorthPole.github.io/cache/2.4.png">
+<meta property="og:image" content="https://github.com/zzyNorthPole/zzyNorthPole.github.io/cache/2.6.png">
+<meta property="og:image" content="https://github.com/zzyNorthPole/zzyNorthPole.github.io/cache/2.7.png">
+<meta property="og:image" content="https://github.com/zzyNorthPole/zzyNorthPole.github.io/cache/2.8.png">
+<meta property="og:image" content="https://github.com/zzyNorthPole/zzyNorthPole.github.io/cache/2.9.png">
+<meta property="og:image" content="https://github.com/zzyNorthPole/zzyNorthPole.github.io/cache/2.10.png">
+<meta property="og:image" content="https://github.com/zzyNorthPole/zzyNorthPole.github.io/cache/2.11.png">
+<meta property="article:published_time" content="2023-01-22T12:32:17.000Z">
+<meta property="article:modified_time" content="2023-04-23T12:29:13.347Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="cache">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/zzyNorthPole/zzyNorthPole.github.io/cache/2.1.png">
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/zzyNorthPole/zzyNorthPole.github.io/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/zzyNorthPole/zzyNorthPole.github.io/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/zzyNorthPole/zzyNorthPole.github.io/zzyNorthPole/zzyNorthPole.github.io/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            cache -
+        
+        zzyNorthPole
+    </title>
+    
+<link rel="stylesheet" href="/zzyNorthPole/zzyNorthPole.github.io/css/style.css">
+
+    
+<link rel="stylesheet" href="/zzyNorthPole/zzyNorthPole.github.io/assets/fonts.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"github.com","root":"/zzyNorthPole/zzyNorthPole.github.io/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true},"home_banner":{"enable":true,"image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Theme Redefine","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true},"categories":{"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"}},"tags":{"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"}}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/zzyNorthPole/zzyNorthPole.github.io/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/zzyNorthPole/zzyNorthPole.github.io/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/zzyNorthPole/zzyNorthPole.github.io/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/zzyNorthPole/zzyNorthPole.github.io/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                zzyNorthPole
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/zzyNorthPole/zzyNorthPole.github.io/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/zzyNorthPole/zzyNorthPole.github.io/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">cache</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/zzyNorthPole/zzyNorthPole.github.io/zzyNorthPole/zzyNorthPole.github.io/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">zzyNorthPole</span>
+                            
+                                <span class="author-label"></span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-01-22 20:32:17</span>
+        <span class="mobile">2023-01-22 20:32</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-04-23 20:29:13</span>
+            <span class="mobile">2023-04-23 20:29</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/zzyNorthPole/zzyNorthPole.github.io/categories/cpu/">cpu</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/zzyNorthPole/zzyNorthPole.github.io/tags/cache/">cache</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="Cache的一般设计"><a href="#Cache的一般设计" class="headerlink" title="Cache的一般设计"></a>Cache的一般设计</h2><p>两个相关性：</p>
+<p>时间相关性：如果一个数据现在被访问了，那么它以后很可能还会被访问；</p>
+<p>空间相关性：如果一个数据现在被访问了，那么它周围的数据在以后有可能也会被访问。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/zzyNorthPole/zzyNorthPole.github.io/cache/2.1.png"></p>
+<p>L1 Cache包括两个物理的存在，指令Cache(I-Cache)和数据Cache(D-Cache)。最靠近处理器，是流水线的一部分，需要和处理器保持近似相等的速度，这注定了他的容量不能够很大，一般适用SRAM来实现。</p>
+<p>L2 Cache则是指令和数据共享，它的主要功能是为了尽量保存更多的内容。在多核的环境中，L2 Cache可能是多核之间共享的，但L1 Cache是每个核私有的。</p>
+<p>在超标量处理器中，对Cache有更特殊的需求。对I-Cache来说，需要每周期读取多条指令，但除非遇到预测跳转的分支指令时，I-Cache的延迟才会对性能造成影响；</p>
+<p>但是对于D-Cache来说，它需要支持在每周期内有多条load/store指令的访问，也就是需要多端口的设计，这有可能会造成过大的延迟，对处理器的性能造成负面的影响。</p>
+<p>对于L2 Cache来说，其访问频率并不是很高，所需要的是有比较高的命中率。</p>
+<p>Cache主要由两部分组成，Tag部分和Data部分。Cache是利用了程序中的相关性。Data部分用来保存一段连续地址的数据，Tag部分保存这段连续数据的公共地址。</p>
+<p>Cache line：一个Tag和它对应的所有数据组成的一行；</p>
+<p>Cache data block：Cache line中的数据部分；</p>
+<p>Cache Set：如果一个数据可以存储在Cache中的多个地方，这些被同一个地址找到的多个Cache line称为Cache Set。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/zzyNorthPole/zzyNorthPole.github.io/cache/2.2.png"></p>
+<p>Cache有三种主要的实现方式，直接映射(direct-mapped) Cache，组相连(set-associative) Cache和全相连(fully-associative) Cache。</p>
+<p>对于物理内存的一个数据来说，</p>
+<p>如果在Cache中只有一个地方可以容纳它，它就是直接映射的Cache；</p>
+<p>如果Cache中有多个地方都可以放置这个数据，它就是组相连的Cache；</p>
+<p>如果Cache中任何的地方都可以放置这个数据，它就是全相连的Cache。</p>
+<p>TLB和Victim Cache多采用全相连结构，普通的I-Cache和D-Cache则采用组相连结构。</p>
+<p>有很多情况下要找的指令或数据并不在Cache中，这称为Cache的缺失(Cache miss)，主要有以下情况：</p>
+<ol>
+<li><p>Compulsory，由于Cache只是缓存以前访问过的内容，因此第一次访问的指令或数据肯定就不会在Cache中，可以通过预取(prefetching)的方法来尽量减低这种缺失发生的频率。</p>
+</li>
+<li><p>Capcity。例如当程序频繁使用的5个数据属于不同的Cache Set而Cache的容量只有4个Cache Set时，那么就会经常发生缺失了。</p>
+</li>
+<li><p>Conflict，为了解决多个数据映射到Cache中同一个位置的情况，一般采用组相连结构的Cache。在一个有着二路结构的Cache中，如果程序频繁使用的三个数据属于同一个Cache Set，就会经常发生缺失，此时可以使用Victim Cache来缓解这个问题。</p>
+</li>
+</ol>
+<p>上面列出的影响Cache缺失的三个条件，被称为3C定理，prefetching和Victim Cache只能尽量减少它发生的频率，并不能从根本上消除Cache缺失的问题。</p>
+<h3 id="Cache的组成方式"><a href="#Cache的组成方式" class="headerlink" title="Cache的组成方式"></a>Cache的组成方式</h3><ol>
+<li>直接映射</li>
+</ol>
+<p>直接映射(direct-mapped)结构的Cache是最容易实现的一种方式，访问地址被划分成三部分，Tag、Index和Block Offset。</p>
+<p>使用Index来从Cache中找到一个对应的Cache line；</p>
+<p>但是所有Index相同的地址都会寻址到这个Cache line，因此在Cache line中还有Tag部分用来和地址中的Tag进行比较。</p>
+<p>在一个Cache line中有很多个数据，通过存储器地址中的Block Offset部分可以找到真正想要的数据，定位到每个字节。</p>
+<p>在Cache line中还有一个有效位(valid)，用来标记这个Cache line是否保存着有效的数据，只有在之前被访问过的存储器地址，它的数据才会存在于对应的Cache line中，相应的有效位才会被置为1.</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/zzyNorthPole/zzyNorthPole.github.io/cache/2.4.png"></p>
+<ol start="2">
+<li>组相连</li>
+</ol>
+<p>组相连(set-associative)的方式是为了解决直接映射结构Cache的不足而提出的，存储器中的一个数据可以存放在多个Cache line中。对于一个组相连结构的Cache而言，如果一个数据可以放在n个位置，则称这个Cache是n路组相连的Cache(n-way set-associative Cache)。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/zzyNorthPole/zzyNorthPole.github.io/cache/2.6.png"></p>
+<p>这种结构使用存储器地址的Index部分对Cache进行寻址，此时可以得到两个Cache line，这两个Cahce line称为一个Cache Set，然后通过比较Tag的结果来确定哪个Cache line才是最终需要的，如果都不相等，那么就发生了Cache缺失。</p>
+<p>这种Cache的实现方式较直接映射结构的Cache延迟会更大，有时甚至要将Cache流水化，以减少对处理器周期时间的影响。虽然导致load指令的延迟增加，但是能够显著减少Cache缺失发生的频率。</p>
+<p>在实际实现中，Tag和Data部分是分开放置的，称为Tag SRAM和Data SRAM，可以同时访问这两个部分，称为并行访问；如果先访问Tag SRAM再访问Data SRAM，这种方式称为串行访问。</p>
+<p>对于并行访问的结构，当Tag部分的某个地址被读取的同时，这个地址在Data部分相应的所有数据也会被读取出来，并送到一个多路选择器上，这个多路选择器受到Tag比较结果的控制，选出赌赢的Data block，然后根据存储器地址中Block Offset的值，选择出合适的字节，一般将选择字节的这个过程称为数据对齐。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/zzyNorthPole/zzyNorthPole.github.io/cache/2.7.png"></p>
+<p>Cache的访问一般都是处理器中的关键路径(critical path)，如果想使处理器运行在比较高的频率下，Cache的访问就需要使用流水线。对于I-Cache，流水线结构不会有太大的影响，D-Cache则会增大load指令的延迟。</p>
+<p>在并行访问的结构中使用Cache流水线：</p>
+<p>流水线的地址计算阶段计算(Address Calculation)得出存储器的地址；</p>
+<p>Disambiguation阶段对load/store指令之间存在的相关性进行检查；</p>
+<p>在下个流水阶段(Cache Access)直接并行地访问Tag SRAM和Data SRAM，并用Tag比较的结果对输出的数据进行选择；</p>
+<p>最后一个流水线阶段(Result Drive)，使用存储器地址中的block offset值，从数据部分给出的data block中选出最终需要的数据。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/zzyNorthPole/zzyNorthPole.github.io/cache/2.8.png"></p>
+<p>对于串行访问方法来说，首先对Tag SRAM进行访问，根据Tag比较的结果，就可以知道数据部分中，哪一路的数据是需要被访问的，此时可以直接访问这一路的数据。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/zzyNorthPole/zzyNorthPole.github.io/cache/2.9.png"></p>
+<p>流水化处理：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/zzyNorthPole/zzyNorthPole.github.io/cache/2.10.png"></p>
+<p>这种方式降低了访问Tag SRAM和Data SRAM的延迟，因为此时已经不需要多路选择器，但是Cache的访问增加一个周期，增大了load指令的延迟。</p>
+<p>对于超标量处理器来说，当Cache的访问处于处理器的关键路径上时，可以将访问Cache的这段时间通过填充其他的指令而掩盖其阿里，使用串行访问的方式来提高时钟频率较优；</p>
+<p>对于普通的顺序执行的处理器来说，访问Cache如果增加一个周期，因为无法对指令进行调度，可能会引起处理器性能的降低，因此使用并行访问的方式就是一种比较合理的选择。</p>
+<ol start="3">
+<li>全相连</li>
+</ol>
+<p>在全相连(fully-associative)的方式中，对于一个存储器地址来说，他的数据可以放在任意一个Cache line中，因此不再有Index部分，而是直接在整个Cache中进行Tag比较。这其实就是内容寻址的存储器(CAM)。实际当中处理器使用全相连结构的Cache时，都是使用CAM来存储Tag值，普通的SRAM来存储数据。CAM中的某一行被寻址到时，SRAM中对应的行也将会被找到，从而SRAM可以直接输出对应的数据。</p>
+<p>全相连结构的Cache有着最大的灵活度，延迟也最大，因此一般不会有很大的容量，TLB就是其中的重要例子。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/zzyNorthPole/zzyNorthPole.github.io/cache/2.11.png"></p>
+<h3 id="Cache的写入"><a href="#Cache的写入" class="headerlink" title="Cache的写入"></a>Cache的写入</h3><p>写通(Write Through)：当数据写到D-Cache的同时，也写到下级存储器中；</p>
+<p>写回(Write Back)：数据被写到D-Cache后，只是将被写入的Cache Line做一个记号，并不将这个数据写到更下级的存储器中，只有当Cache中这个被标记的line要被替换时，才将它写到下级存储器中；被标记的记号称为脏(dirty)状态。</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> cache</li>
+        <li><strong>Author:</strong> zzyNorthPole</li>
+        <li><strong>Created at:</strong> 2023-01-22 20:32:17</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-04-23 20:29:13
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://github.com/zzyNorthPole/zzyNorthPole.github.io/2023/01/22/cache/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/zzyNorthPole/zzyNorthPole.github.io/tags/cache/">#cache</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/zzyNorthPole/zzyNorthPole.github.io/2023/01/24/LCT/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">LCT</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/zzyNorthPole/zzyNorthPole.github.io/2023/01/22/shortest-path-dp-luogu3953/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">shortest_path &amp; dp &amp; luogu3953</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">cache</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache%E7%9A%84%E4%B8%80%E8%88%AC%E8%AE%BE%E8%AE%A1"><span class="nav-text">Cache的一般设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache%E7%9A%84%E7%BB%84%E6%88%90%E6%96%B9%E5%BC%8F"><span class="nav-text">Cache的组成方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache%E7%9A%84%E5%86%99%E5%85%A5"><span class="nav-text">Cache的写入</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">zzyNorthPole</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.2</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/utils.js"></script>
+
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/main.js"></script>
+
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/layouts/navbarShrink.js"></script>
+
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/tools/scrollTopBottom.js"></script>
+
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/tools/codeBlock.js"></script>
+
+
+
+
+    
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/tools/runtime.js"></script>
+
+    
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/zzyNorthPole/zzyNorthPole.github.io/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/libs/Typed.min.js"></script>
+
+  
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/tools/tocToggle.js"></script>
+
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/libs/anime.min.js"></script>
+
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/layouts/toc.js"></script>
+
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/zzyNorthPole/zzyNorthPole.github.io/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
