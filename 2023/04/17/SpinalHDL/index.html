@@ -18,15 +18,15 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="gen12345678910111213import spinal.core._object MyMain {  def main(args: Array[String]): Unit &#x3D; {    val spinalConfig &#x3D; SpinalConfig(      targetDirectory &#x3D; &quot;hw&#x2F;gen&quot;,      defaultConfigForClockDomains">
+        <meta name="description" content="examples of spinalHDL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpinalHDL">
 <meta property="og:url" content="https://zzynorthpole.github.io/2023/04/17/SpinalHDL/index.html">
 <meta property="og:site_name" content="zzyNorthPole&#39;s blog">
-<meta property="og:description" content="gen12345678910111213import spinal.core._object MyMain {  def main(args: Array[String]): Unit &#x3D; {    val spinalConfig &#x3D; SpinalConfig(      targetDirectory &#x3D; &quot;hw&#x2F;gen&quot;,      defaultConfigForClockDomains">
+<meta property="og:description" content="examples of spinalHDL">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-04-17T09:15:34.000Z">
-<meta property="article:modified_time" content="2023-04-23T12:29:13.358Z">
+<meta property="article:modified_time" content="2023-04-23T13:21:53.440Z">
 <meta property="article:author" content="ZHU Zhuo-Yuan">
 <meta property="article:tag" content="SpinalHDL">
 <meta name="twitter:card" content="summary">
@@ -336,8 +336,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-04-23 20:29:13</span>
-            <span class="mobile">2023-04-23 20:29</span>
+            <span class="desktop">2023-04-23 21:21:53</span>
+            <span class="mobile">2023-04-23 21:21</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -383,7 +383,10 @@ mjx-container[display="true"] + br {
             
 
             <div class="article-content markdown-body">
-                <h2 id="gen"><a href="#gen" class="headerlink" title="gen"></a>gen</h2><div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> spinal.core._</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">MyMain</span> </span>{</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = {</span><br><span class="line">    <span class="keyword">val</span> spinalConfig = <span class="type">SpinalConfig</span>(</span><br><span class="line">      targetDirectory = <span class="string">"hw/gen"</span>,</span><br><span class="line">      defaultConfigForClockDomains = <span class="type">ClockDomainConfig</span>(resetActiveLevel = <span class="type">LOW</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    spinalConfig</span><br><span class="line">      .generateVerilog(<span class="keyword">new</span> bram(depth = <span class="number">1</span> &lt;&lt; <span class="number">16</span>, width = <span class="number">1</span> &lt;&lt; <span class="number">5</span>, weWidth = <span class="number">1</span>))</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+                <p>examples of spinalHDL</p>
+<span id="more"></span>
+
+<h2 id="gen"><a href="#gen" class="headerlink" title="gen"></a>gen</h2><div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> spinal.core._</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">MyMain</span> </span>{</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = {</span><br><span class="line">    <span class="keyword">val</span> spinalConfig = <span class="type">SpinalConfig</span>(</span><br><span class="line">      targetDirectory = <span class="string">"hw/gen"</span>,</span><br><span class="line">      defaultConfigForClockDomains = <span class="type">ClockDomainConfig</span>(resetActiveLevel = <span class="type">LOW</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    spinalConfig</span><br><span class="line">      .generateVerilog(<span class="keyword">new</span> bram(depth = <span class="number">1</span> &lt;&lt; <span class="number">16</span>, width = <span class="number">1</span> &lt;&lt; <span class="number">5</span>, weWidth = <span class="number">1</span>))</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 
 <h2 id="sequential-logic"><a href="#sequential-logic" class="headerlink" title="sequential logic"></a>sequential logic</h2><div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyTopLevel</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>{</span><br><span class="line">  <span class="keyword">val</span> io = <span class="keyword">new</span> <span class="type">Bundle</span> {</span><br><span class="line">    <span class="keyword">val</span> clk = in <span class="type">Bool</span>()</span><br><span class="line">    <span class="keyword">val</span> rst = in <span class="type">Bool</span>()</span><br><span class="line">    <span class="keyword">val</span> result = out <span class="type">UInt</span>(<span class="number">4</span> bits)</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> tmpClockDomain = <span class="type">ClockDomain</span>.external(</span><br><span class="line">    name = <span class="string">""</span>,</span><br><span class="line">    config = <span class="type">ClockDomainConfig</span>(</span><br><span class="line">      clockEdge = <span class="type">RISING</span>,</span><br><span class="line">      resetKind = <span class="type">SYNC</span>,</span><br><span class="line">      resetActiveLevel = <span class="type">HIGH</span></span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> tmpArea = <span class="keyword">new</span> <span class="type">ClockingArea</span>(tmpClockDomain) {</span><br><span class="line">    <span class="keyword">val</span> tmpReg = <span class="type">Reg</span>(<span class="type">UInt</span>(<span class="number">4</span> bits)) init(<span class="number">7</span>)</span><br><span class="line">    tmpReg := tmpReg + <span class="number">1</span></span><br><span class="line">    io.result := tmpReg</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  noIoPrefix()</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
 
@@ -401,7 +404,7 @@ mjx-container[display="true"] + br {
         <li><strong>Created at:</strong> 2023-04-17 17:15:34</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-04-23 20:29:13
+                <strong>Updated at:</strong> 2023-04-23 21:21:53
             </li>
         
         <li>
