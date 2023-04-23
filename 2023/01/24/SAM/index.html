@@ -22,12 +22,12 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="SAM">
 <meta property="og:url" content="https://zzynorthpole.github.io/2023/01/24/SAM/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="zzyNorthPole&#39;s blog">
 <meta property="og:description" content="后缀自动机是一种DFN，维护了字符串中所有子串的信息。 对于后缀自动机的fa树，维护的内容本质上是不同串之间  的关系。可以发现，任意两个节点之间的  ，满足  或者 。它们之间的关系形成一棵树。 在后缀自动机中动态插入节点的过程，本质上是加入一个新的endpos集的过程。如果该字符此前从未出现过，那么就对于  之前的所有后缀字符串，它们的  集合都是相同的。如果出现过，那么就要考虑与之合并的问题">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-24T01:26:41.000Z">
 <meta property="article:modified_time" content="2023-04-23T12:29:13.349Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="ZHU Zhuo-Yuan">
 <meta property="article:tag" content="template">
 <meta property="article:tag" content="SAM">
 <meta name="twitter:card" content="summary">
@@ -482,50 +482,6 @@ mjx-container[display="true"] + br {
 
 
             
-                <div class="comment-container">
-                    <div class="comments-container">
-    <div id="comment-anchor"></div>
-    <div class="comment-area-title">
-        <i class="fa-solid fa-comments"></i>&nbsp;Comments
-    </div>
-    
-
-        
-            
- 
-    <div id="waline"></div>
-    <script type="module"  data-pjax>
-        import { init } from 'https://evan.beee.top/js/waline.mjs';
-
-        function loadWaline() {
-            init({
-                el: '#waline',
-                serverURL: 'https://example.example.com',
-                lang: 'zh-CN',
-                dark: 'body[class~="dark-mode"]',
-                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
-            });
-        }
-
-        if ('true') {
-            const loadWalineTimeout = setTimeout(() => {
-                loadWaline();
-                clearTimeout(loadWalineTimeout);
-            }, 1000);
-        } else {
-            window.addEventListener('DOMContentLoaded', loadWaline);
-        }
-        
-    </script>
-
-
-
-        
-    
-</div>
-
-                </div>
-            
         </div>
 
         
@@ -630,10 +586,6 @@ mjx-container[display="true"] + br {
         
 
         <!-- go comment -->
-        
-            <li class="go-comment">
-                <i class="fa-regular fa-comments"></i>
-            </li>
         
     </ul>
 </div>
