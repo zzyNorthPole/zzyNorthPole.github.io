@@ -13,24 +13,23 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://zzynorthpole.github.io/2023/03/25/mit-6-828-os/"/>
+    <link rel="canonical" href="https://zzynorthpole.github.io/2023/04/27/扩展kmp/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="https:&#x2F;&#x2F;pdos.csail.mit.edu&#x2F;6.828&#x2F;2018&#x2F;schedule.html">
+        <meta name="description" content="扩展kmp概述">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MIT 6.828 OS">
-<meta property="og:url" content="https://zzynorthpole.github.io/2023/03/25/MIT-6-828-OS/index.html">
+<meta property="og:title" content="扩展kmp">
+<meta property="og:url" content="https://zzynorthpole.github.io/2023/04/27/%E6%89%A9%E5%B1%95kmp/index.html">
 <meta property="og:site_name" content="zzyNorthPole&#39;s blog">
-<meta property="og:description" content="https:&#x2F;&#x2F;pdos.csail.mit.edu&#x2F;6.828&#x2F;2018&#x2F;schedule.html">
+<meta property="og:description" content="扩展kmp概述">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://zzynorthpole.github.io/image/MIT-6-828-OS/1.png">
-<meta property="article:published_time" content="2023-03-25T09:16:28.000Z">
-<meta property="article:modified_time" content="2023-04-23T15:26:54.201Z">
+<meta property="article:published_time" content="2023-04-27T02:16:08.000Z">
+<meta property="article:modified_time" content="2023-04-27T02:16:53.700Z">
 <meta property="article:author" content="ZHU Zhuo-Yuan">
+<meta property="article:tag" content="z函数">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zzynorthpole.github.io/image/MIT-6-828-OS/1.png">
     
     <!--- Icon Part-->
     <link rel="icon" type="image/png" href="/images/logo.jpg" sizes="192x192">
@@ -41,7 +40,7 @@
     
     <title>
         
-            MIT 6.828 OS -
+            扩展kmp -
         
         zzyNorthPole
     </title>
@@ -308,7 +307,7 @@ mjx-container[display="true"] + br {
             
             
                 <div class="article-title">
-                    <h1 class="article-title-regular">MIT 6.828 OS</h1>
+                    <h1 class="article-title-regular">扩展kmp</h1>
                 </div>
             
                 
@@ -330,15 +329,15 @@ mjx-container[display="true"] + br {
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-03-25 17:16:28</span>
-        <span class="mobile">2023-03-25 17:16</span>
+        <span class="desktop">2023-04-27 10:16:08</span>
+        <span class="mobile">2023-04-27 10:16</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-04-23 23:26:54</span>
-            <span class="mobile">2023-04-23 23:26</span>
+            <span class="desktop">2023-04-27 10:16:53</span>
+            <span class="mobile">2023-04-27 10:16</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -349,12 +348,23 @@ mjx-container[display="true"] + br {
             <ul>
                 
                     <li>
-                        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>&nbsp;
+                        <a href="/categories/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/">基础算法</a>&nbsp;
                     </li>
                 
             </ul>
         </span>
     
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/z%E5%87%BD%E6%95%B0/">z函数</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -373,31 +383,23 @@ mjx-container[display="true"] + br {
             
 
             <div class="article-content markdown-body">
-                <h2 id="PC-Bootstrap"><a href="#PC-Bootstrap" class="headerlink" title="PC Bootstrap"></a>PC Bootstrap</h2><p><img lazyload="" src="/images/loading.svg" data-src="/image/MIT-6-828-OS/1.png"></p>
-<p>The BIOS is responsible for performing basic system initialization such as activating the video card and checking the amount of memory installed. </p>
-<p>After performing this initialization, the BIOS loads the operating system from some appropriate location such as floppy disk, hard disk, CD-ROM, or the network, and passes control of the machine to the operating system.</p>
-<p>In 80286 and 80386, the PC architects nevertheless preserved the original layout for the low 1MB of physical address space in order to ensure backward compatibility with existing software. </p>
-<p><strong>wrong</strong>:Failed to find an available port: Address already in use</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lsof -i tcp:post</span><br><span class="line"><span class="built_in">kill</span> pid</span><br></pre></td></tr></table></figure></div>
-
-<p><em>physical address = 16 * segment + offset</em></p>
-<h2 id="The-Boot-Loader"><a href="#The-Boot-Loader" class="headerlink" title="The Boot Loader"></a>The Boot Loader</h2>
+                
             </div>
 
             
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> MIT 6.828 OS</li>
+        <li><strong>Title:</strong> 扩展kmp</li>
         <li><strong>Author:</strong> zzyNorthPole</li>
-        <li><strong>Created at:</strong> 2023-03-25 17:16:28</li>
+        <li><strong>Created at:</strong> 2023-04-27 10:16:08</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-04-23 23:26:54
+                <strong>Updated at:</strong> 2023-04-27 10:16:53
             </li>
         
         <li>
-            <strong>Link:</strong> https://zzynorthpole.github.io/2023/03/25/MIT-6-828-OS/
+            <strong>Link:</strong> https://zzynorthpole.github.io/2023/04/27/扩展kmp/
         </li>
         <li>
             <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
@@ -409,35 +411,28 @@ mjx-container[display="true"] + br {
             
 
             
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/z%E5%87%BD%E6%95%B0/">#z函数</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
 
             
 
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2023/03/27/combinatorics/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">combinatorics</span>
-                                    <span class="post-nav-item">Prev posts</span>
-                                </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/03/25/unix-commands/"
+                            href="/2023/04/26/%E6%B3%95%E7%90%86%E5%AD%A6/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">unix commands</span>
+                                    <span class="post-nav-title-item">法理学</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -458,8 +453,8 @@ mjx-container[display="true"] + br {
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">MIT 6.828 OS</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PC-Bootstrap"><span class="nav-text">PC Bootstrap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Boot-Loader"><span class="nav-text">The Boot Loader</span></a></li></ol>
+        <div class="page-title">扩展kmp</div>
+        
 
     </div>
 </div>

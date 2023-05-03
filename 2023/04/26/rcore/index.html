@@ -13,23 +13,26 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://zzynorthpole.github.io/2023/04/17/scala/"/>
+    <link rel="canonical" href="https://zzynorthpole.github.io/2023/04/26/rcore/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="scala入门">
+        <meta name="description" content="http:&#x2F;&#x2F;rcore-os.cn&#x2F;rCore-Tutorial-Book-v3&#x2F;index.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="scala">
-<meta property="og:url" content="https://zzynorthpole.github.io/2023/04/17/scala/index.html">
+<meta property="og:title" content="rcore">
+<meta property="og:url" content="https://zzynorthpole.github.io/2023/04/26/rcore/index.html">
 <meta property="og:site_name" content="zzyNorthPole&#39;s blog">
-<meta property="og:description" content="scala入门">
+<meta property="og:description" content="http:&#x2F;&#x2F;rcore-os.cn&#x2F;rCore-Tutorial-Book-v3&#x2F;index.html">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-04-17T06:46:24.000Z">
-<meta property="article:modified_time" content="2023-04-26T05:16:56.192Z">
+<meta property="og:image" content="https://zzynorthpole.github.io/image/rcore/EE.png">
+<meta property="og:image" content="https://zzynorthpole.github.io/image/rcore/run-app.png">
+<meta property="og:image" content="https://zzynorthpole.github.io/image/rcore/complex-EE.png">
+<meta property="article:published_time" content="2023-04-26T02:28:35.000Z">
+<meta property="article:modified_time" content="2023-04-26T04:34:45.995Z">
 <meta property="article:author" content="ZHU Zhuo-Yuan">
-<meta property="article:tag" content="scala">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zzynorthpole.github.io/image/rcore/EE.png">
     
     <!--- Icon Part-->
     <link rel="icon" type="image/png" href="/images/logo.jpg" sizes="192x192">
@@ -40,7 +43,7 @@
     
     <title>
         
-            scala -
+            rcore -
         
         zzyNorthPole
     </title>
@@ -307,7 +310,7 @@ mjx-container[display="true"] + br {
             
             
                 <div class="article-title">
-                    <h1 class="article-title-regular">scala</h1>
+                    <h1 class="article-title-regular">rcore</h1>
                 </div>
             
                 
@@ -329,15 +332,15 @@ mjx-container[display="true"] + br {
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-04-17 14:46:24</span>
-        <span class="mobile">2023-04-17 14:46</span>
+        <span class="desktop">2023-04-26 10:28:35</span>
+        <span class="mobile">2023-04-26 10:28</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-04-26 13:16:56</span>
-            <span class="mobile">2023-04-26 13:16</span>
+            <span class="desktop">2023-04-26 12:34:45</span>
+            <span class="mobile">2023-04-26 12:34</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -348,23 +351,12 @@ mjx-container[display="true"] + br {
             <ul>
                 
                     <li>
-                        <a href="/categories/%E7%A8%8B%E5%BA%8F%E8%AF%AD%E8%A8%80/">程序语言</a>&nbsp;
+                        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>&nbsp;
                     </li>
                 
             </ul>
         </span>
     
-    
-        <span class="article-tags article-meta-item">
-            <i class="fa-regular fa-tags"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/tags/scala/">scala</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
     
 
     
@@ -383,92 +375,234 @@ mjx-container[display="true"] + br {
             
 
             <div class="article-content markdown-body">
-                <h2 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h2><h3 id="Types"><a href="#Types" class="headerlink" title="Types"></a>Types</h3><table>
+                <h2 id="操作系统概述"><a href="#操作系统概述" class="headerlink" title="操作系统概述"></a>操作系统概述</h2><p><img lazyload="" src="/images/loading.svg" data-src="/image/rcore/EE.png" alt="执行环境"></p>
+<h3 id="API与ABI"><a href="#API与ABI" class="headerlink" title="API与ABI"></a>API与ABI</h3><p>应用程序二进制接口ABI是不同二进制代码片段的连接纽带。ABI定义了二进制机器代码级别的规则，包括基本数据类型、通用寄存器的使用、参数的传递规则、堆栈的使用等。ABI与处理器和内存地址等硬件架构相关，是用来约束链接器和汇编器的。在同一处理器下，基于不同高级语言编写的应用程序、库和操作系统，如果遵循同样的 ABI 定义，那么它们就能正确链接和执行。</p>
+<p>应用程序编程接口API是不同源代码片段的连接纽带。API定义了一个源码级函数的参数，参数的类型，函数的返回值等。API是用来约束编译器的。API 与编程语言相关，如 libc 是基于 C 语言编写的标准库，那么基于 C 的应用程序就可以通过编译器建立与 libc 的联系，并能在运行中正确访问 libc 中的函数。</p>
+<h3 id="系统调用接口与功能"><a href="#系统调用接口与功能" class="headerlink" title="系统调用接口与功能"></a>系统调用接口与功能</h3><ul>
+<li>进程管理：fork、exit、exec</li>
+<li>线程管理：线程的创建、执行、调度切换</li>
+<li>线程同步互斥的并发控制：互斥锁mutex、信号量semaphore、管程monitor、条件变量condition variable</li>
+<li>进程间通信：管道pipe、信号signal、事件event</li>
+<li>虚存管理：内存空间映射mmap、改变数据段地址空间大小sbrk、共享内存shm</li>
+<li>文件io：read、write、open、close</li>
+<li>外设io：外设包括键盘、显示器、串口、磁盘、时钟，主要采用文件io操作接口</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="/image/rcore/run-app.png"></p>
+<p>注解：</p>
+<ul>
+<li>文件是外设的一种抽象和虚拟化</li>
+<li>地址空间是对内存的抽象和虚拟化</li>
+<li>进程是对计算机资源的抽象和虚拟化</li>
+</ul>
+<table>
 <thead>
 <tr>
-<th>Type</th>
-<th>Description</th>
+<th>编号</th>
+<th>系统调用</th>
+<th>所在章节</th>
+<th>功能描述</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Boolean</td>
-<td>true/false</td>
+<td>1</td>
+<td>sys_exit</td>
+<td>2</td>
+<td>结束执行</td>
 </tr>
 <tr>
-<td>Int</td>
-<td>32 int</td>
+<td>2</td>
+<td>sys_write</td>
+<td>2/6</td>
+<td>(2)输出字符串/(6)写文件</td>
 </tr>
 <tr>
-<td>Float</td>
-<td>32 float</td>
+<td>3</td>
+<td>sys_yield</td>
+<td>3</td>
+<td>暂时放弃执行</td>
 </tr>
 <tr>
-<td>Double</td>
-<td>64 float</td>
+<td>4</td>
+<td>sys_get_time</td>
+<td>3</td>
+<td>获取当前时间</td>
 </tr>
 <tr>
-<td>String</td>
-<td>UTF-16 string</td>
+<td>5</td>
+<td>sys_getpid</td>
+<td>5</td>
+<td>获取进程id</td>
+</tr>
+<tr>
+<td>6</td>
+<td>sys_fork</td>
+<td>5</td>
+<td>创建子进程</td>
+</tr>
+<tr>
+<td>7</td>
+<td>sys_exec</td>
+<td>5</td>
+<td>执行新程序</td>
+</tr>
+<tr>
+<td>8</td>
+<td>sys_waitpid</td>
+<td>5</td>
+<td>等待子进程结束</td>
+</tr>
+<tr>
+<td>9</td>
+<td>sys_read</td>
+<td>5/6</td>
+<td>(5)读取字符串/(6)读文件</td>
+</tr>
+<tr>
+<td>10</td>
+<td>sys_open</td>
+<td>6</td>
+<td>打开/创建文件</td>
+</tr>
+<tr>
+<td>11</td>
+<td>sys_close</td>
+<td>6</td>
+<td>关闭文件</td>
+</tr>
+<tr>
+<td>12</td>
+<td>sys_dup</td>
+<td>7</td>
+<td>复制文件描述符</td>
+</tr>
+<tr>
+<td>13</td>
+<td>sys_pipe</td>
+<td>7</td>
+<td>创建管道</td>
+</tr>
+<tr>
+<td>14</td>
+<td>sys_kill</td>
+<td>7</td>
+<td>发送信号给某进程</td>
+</tr>
+<tr>
+<td>15</td>
+<td>sys_sigaction</td>
+<td>7</td>
+<td>设立信号处理例程</td>
+</tr>
+<tr>
+<td>16</td>
+<td>sys_sigprocmask</td>
+<td>7</td>
+<td>设置要阻止的信号</td>
+</tr>
+<tr>
+<td>17</td>
+<td>sys_sigreturn</td>
+<td>7</td>
+<td>从信号处理例程返回</td>
+</tr>
+<tr>
+<td>18</td>
+<td>sys_sleep</td>
+<td>8</td>
+<td>进程休眠一段时间</td>
+</tr>
+<tr>
+<td>19</td>
+<td>sys_thread_create</td>
+<td>8</td>
+<td>创建线程</td>
+</tr>
+<tr>
+<td>20</td>
+<td>sys_gettid</td>
+<td>8</td>
+<td>获取线程id</td>
+</tr>
+<tr>
+<td>21</td>
+<td>sys_waittid</td>
+<td>8</td>
+<td>等待线程结束</td>
+</tr>
+<tr>
+<td>22</td>
+<td>sys_mutex_create</td>
+<td>8</td>
+<td>创建锁</td>
+</tr>
+<tr>
+<td>23</td>
+<td>sys_mutex_lock</td>
+<td>8</td>
+<td>获取锁</td>
+</tr>
+<tr>
+<td>24</td>
+<td>sys_mutex_unlock</td>
+<td>8</td>
+<td>释放锁</td>
+</tr>
+<tr>
+<td>25</td>
+<td>sys_semaphore_create</td>
+<td>8</td>
+<td>创建信号量</td>
+</tr>
+<tr>
+<td>26</td>
+<td>sys_semaphore_up</td>
+<td>8</td>
+<td>减少信号量的计数</td>
+</tr>
+<tr>
+<td>27</td>
+<td>sys_semaphore_down</td>
+<td>8</td>
+<td>增加信号量的计数</td>
+</tr>
+<tr>
+<td>28</td>
+<td>sys_condvar_create</td>
+<td>8</td>
+<td>创建条件变量</td>
+</tr>
+<tr>
+<td>29</td>
+<td>sys_condvar_signal</td>
+<td>8</td>
+<td>唤醒阻塞在条件变量上的线程</td>
+</tr>
+<tr>
+<td>30</td>
+<td>sys_condvar_wait</td>
+<td>8</td>
+<td>阻塞与此条件变量关联的当前线程</td>
 </tr>
 </tbody></table>
-<h3 id="Variables"><a href="#Variables" class="headerlink" title="Variables"></a>Variables</h3><div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> number : <span class="type">Int</span> = <span class="number">0</span></span><br><span class="line">number = <span class="number">6</span></span><br><span class="line">number += <span class="number">4</span></span><br><span class="line">println(number)</span><br></pre></td></tr></table></figure></div>
+<p><img lazyload="" src="/images/loading.svg" data-src="/image/rcore/complex-EE.png"></p>
+<h3 id="异常控制流"><a href="#异常控制流" class="headerlink" title="异常控制流"></a>异常控制流</h3><p>三类：外设中断(Device Interrupt)、陷入(Trap)、异常(Exception)。</p>
 
-<p>However, it’s not very common to use var in Scala. Instead, constant values defined by val are often used:</p>
-<div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> two = <span class="number">2</span></span><br><span class="line"><span class="keyword">val</span> three = <span class="number">3</span></span><br><span class="line"><span class="keyword">val</span> six = two * three</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h3><div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">qry_zero</span></span>(a: <span class="type">Float</span>, b: <span class="type">Float</span>): <span class="type">Boolean</span> = {</span><br><span class="line">  <span class="keyword">return</span> (a + b) &gt; <span class="number">0</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qry_zero(<span class="number">2.3</span>f, <span class="number">2.5</span>f)</span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">qry_zero(</span><br><span class="line">  a = <span class="number">2.3</span>f,</span><br><span class="line">  b = <span class="number">2.5</span>f</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
-
-<p>Function that returns nothing</p>
-<div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printer</span></span>(): <span class="type">Unit</span> = {</span><br><span class="line">  println(<span class="string">"hhh"</span>)</span><br><span class="line">  println(<span class="string">"aaa"</span>)</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>Functions named apply are special because you can call them without having to type their name:</p>
-<div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Array</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">apply</span></span>(index: <span class="type">Int</span>): <span class="type">Int</span> = {</span><br><span class="line">    <span class="keyword">return</span> index + <span class="number">3</span></span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"><span class="keyword">val</span> array = <span class="keyword">new</span> <span class="type">Array</span>()</span><br><span class="line"><span class="keyword">val</span> value = array(<span class="number">4</span>)</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h3><p>In Scala, there is no static keyword. In place of that, there is object. Everything defined inside an object definition is static.</p>
-<div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">MathUtils</span> </span>{</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">pow2</span></span>(value: <span class="type">Float</span>): <span class="type">Float</span> = {</span><br><span class="line">    <span class="keyword">return</span> value * value</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"><span class="type">MathUtils</span>.pow2(<span class="number">42.0</span>f)</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="Entry-point-main"><a href="#Entry-point-main" class="headerlink" title="Entry point (main)"></a>Entry point (main)</h3><div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">MyTopLevelMain</span> </span>{</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) {</span><br><span class="line">    println(<span class="string">"Hello World!"</span>)</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="class"><a href="#class" class="headerlink" title="class"></a>class</h3><div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Color</span>(<span class="params">r: <span class="type">Float</span>, g: <span class="type">Float</span>, b: <span class="type">Float</span></span>) </span>{</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">get</span></span>(): <span class="type">Float</span> = {</span><br><span class="line">    <span class="keyword">return</span> r * <span class="number">0.3</span>f + g * <span class="number">0.4</span>f + b * <span class="number">0.4</span>f</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>Be careful, if you want to access a construction parameter of the class from the outside, this construction parameter should be defined as a val:</p>
-<div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Color</span>(<span class="params">val r: <span class="type">Float</span>, val g: <span class="type">Float</span>, val b: <span class="type">Float</span></span>) </span>{</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"><span class="keyword">val</span> blue = <span class="keyword">new</span> <span class="type">Color</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line"><span class="keyword">val</span> r = blue.r</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h3><div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>{</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">getArea</span></span>(): <span class="type">Float</span></span><br><span class="line">}</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span>(<span class="params">sideLength: <span class="type">Float</span></span>) <span class="keyword">extends</span> <span class="title">Shape</span> </span>{</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">getArea</span></span>() = {</span><br><span class="line">    <span class="keyword">return</span> sideLength * sideLength</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="case-class"><a href="#case-class" class="headerlink" title="case class"></a>case class</h3><div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Rec</span>(<span class="params">width: <span class="type">Float</span>, height: <span class="type">Float</span></span>) <span class="keyword">extends</span> <span class="title">Shape</span> </span>{</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">getArea</span></span>() = {</span><br><span class="line">    <span class="keyword">return</span> width * height</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>Then there are some differences between case class and class :</p>
-<ul>
-<li>case classes don’t need the new keyword to be instantiated.</li>
-<li>construction parameters are accessible from outside; you don’t need to define them as val.</li>
-</ul>
-<p>In SpinalHDL, this explains the reasoning behind the coding conventions: it’s in general recommended to use case class <strong>instead of</strong> class in order to have less typing and more coherency.</p>
-<h3 id="Templates-x2F-Type-parameterization"><a href="#Templates-x2F-Type-parameterization" class="headerlink" title="Templates / Type parameterization"></a>Templates / Type parameterization</h3><div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Queue</span>[<span class="type">T</span>](<span class="params"></span>) </span>{</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">push</span></span>(that: <span class="type">T</span>) : <span class="type">Unit</span> = ...</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">pop</span></span>(): <span class="type">T</span> = ...</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Scala"><figure class="iseeu highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getArea</span></span>(): <span class="type">Float</span></span><br><span class="line">}</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span>(<span class="params"></span>) <span class="keyword">extends</span> <span class="title">Shape</span> </span>{ ... }</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Queue</span>[<span class="type">T</span> &lt;: <span class="type">Shape</span>](<span class="params"></span>) </span>{</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">push</span></span>(that: <span class="type">T</span>): <span class="type">Unit</span> = ...</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">pop</span></span>(): <span class="type">T</span> = ...</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="more-and-more"><a href="#more-and-more" class="headerlink" title="more and more"></a>more and more</h2><h3 id="Lexical-Syntax"><a href="#Lexical-Syntax" class="headerlink" title="Lexical Syntax"></a>Lexical Syntax</h3>
             </div>
 
             
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> scala</li>
+        <li><strong>Title:</strong> rcore</li>
         <li><strong>Author:</strong> zzyNorthPole</li>
-        <li><strong>Created at:</strong> 2023-04-17 14:46:24</li>
+        <li><strong>Created at:</strong> 2023-04-26 10:28:35</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-04-26 13:16:56
+                <strong>Updated at:</strong> 2023-04-26 12:34:45
             </li>
         
         <li>
-            <strong>Link:</strong> https://zzynorthpole.github.io/2023/04/17/scala/
+            <strong>Link:</strong> https://zzynorthpole.github.io/2023/04/26/rcore/
         </li>
         <li>
             <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
@@ -480,14 +614,6 @@ mjx-container[display="true"] + br {
             
 
             
-                <ul class="post-tags-box">
-                    
-                        <li class="tag-item">
-                            <a href="/tags/scala/">#scala</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            
 
             
 
@@ -497,13 +623,13 @@ mjx-container[display="true"] + br {
                         <div class="article-prev">
                             <a class="prev"
                             rel="prev"
-                            href="/2023/04/17/SpinalHDL/"
+                            href="/2023/04/26/%E6%B3%95%E7%90%86%E5%AD%A6/"
                             >
                                 <span class="left arrow-icon flex-center">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </span>
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">SpinalHDL</span>
+                                    <span class="post-nav-title-item">法理学</span>
                                     <span class="post-nav-item">Prev posts</span>
                                 </span>
                             </a>
@@ -513,10 +639,10 @@ mjx-container[display="true"] + br {
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/04/07/Round829-Div2-E/"
+                            href="/2023/04/25/rust/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">Round829 Div2 E</span>
+                                    <span class="post-nav-title-item">rust</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -537,8 +663,8 @@ mjx-container[display="true"] + br {
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">scala</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basics"><span class="nav-text">Basics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Types"><span class="nav-text">Types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Variables"><span class="nav-text">Variables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Functions"><span class="nav-text">Functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object"><span class="nav-text">Object</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Entry-point-main"><span class="nav-text">Entry point (main)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class"><span class="nav-text">class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inheritance"><span class="nav-text">Inheritance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case-class"><span class="nav-text">case class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Templates-x2F-Type-parameterization"><span class="nav-text">Templates &#x2F; Type parameterization</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#more-and-more"><span class="nav-text">more and more</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lexical-Syntax"><span class="nav-text">Lexical Syntax</span></a></li></ol></li></ol>
+        <div class="page-title">rcore</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="nav-text">操作系统概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#API%E4%B8%8EABI"><span class="nav-text">API与ABI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3%E4%B8%8E%E5%8A%9F%E8%83%BD"><span class="nav-text">系统调用接口与功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%8E%A7%E5%88%B6%E6%B5%81"><span class="nav-text">异常控制流</span></a></li></ol></li></ol>
 
     </div>
 </div>
