@@ -13,17 +13,22 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://zzynorthpole.github.io/archives/2023/02/"/>
+    <link rel="canonical" href="https://zzynorthpole.github.io/2023/09/28/dcache设计与实现/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta property="og:type" content="website">
-<meta property="og:title" content="zzyNorthPole&#39;s blog">
-<meta property="og:url" content="https://zzynorthpole.github.io/archives/2023/02/index.html">
+        <meta name="description" content="X1处理器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dcache设计与实现">
+<meta property="og:url" content="https://zzynorthpole.github.io/2023/09/28/dcache%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="zzyNorthPole&#39;s blog">
+<meta property="og:description" content="X1处理器">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-09-28T05:51:29.000Z">
+<meta property="article:modified_time" content="2023-09-29T09:32:33.955Z">
 <meta property="article:author" content="ZHU Zhuo-Yuan">
+<meta property="article:tag" content="cache">
 <meta name="twitter:card" content="summary">
     
     <!--- Icon Part-->
@@ -35,7 +40,7 @@
     
     <title>
         
-            Archive: 2023/2 -
+            dcache设计与实现 -
         
         zzyNorthPole
     </title>
@@ -77,7 +82,119 @@
     
     
     
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 
 <body>
@@ -184,294 +301,232 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
-        
-<div class="archive-list-container">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">dcache设计与实现</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/logo.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">zzyNorthPole</span>
+                            
+                                <span class="author-label"></span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-09-28 13:51:29</span>
+        <span class="mobile">2023-09-28 13:51</span>
+        <span class="hover-info">Created</span>
+    </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2023</span>
-                <span class="archive-year-post-count">[45]</span>
-            </div>
-            <ul class="article-list">
-              
-              <li class="article-item" date-is='09-28'>
-                <a href="/2023/09/28/dcache%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">
-                  <span class="article-title">dcache设计与实现</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='09-24'>
-                <a href="/2023/09/24/%E5%9B%BD%E9%99%85%E7%A7%81%E6%B3%95/">
-                  <span class="article-title">国际私法</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='09-24'>
-                <a href="/2023/09/24/%E5%9B%BD%E9%99%85%E7%BB%8F%E6%B5%8E%E6%B3%95/">
-                  <span class="article-title">国际经济法</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='09-23'>
-                <a href="/2023/09/23/%E5%9B%BD%E9%99%85%E6%B3%95/">
-                  <span class="article-title">国际法</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='09-09'>
-                <a href="/2023/09/09/luogu3243/">
-                  <span class="article-title">luogu3243</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='05-03'>
-                <a href="/2023/05/03/luogu4563/">
-                  <span class="article-title">luogu4563</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='05-03'>
-                <a href="/2023/05/03/luogu4064/">
-                  <span class="article-title">luogu4064</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='05-03'>
-                <a href="/2023/05/03/luogu5023/">
-                  <span class="article-title">luogu5023</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-27'>
-                <a href="/2023/04/27/%E6%89%A9%E5%B1%95kmp/">
-                  <span class="article-title">扩展kmp</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-26'>
-                <a href="/2023/04/26/%E6%B3%95%E7%90%86%E5%AD%A6/">
-                  <span class="article-title">法理学</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-26'>
-                <a href="/2023/04/26/rcore/">
-                  <span class="article-title">rcore</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-25'>
-                <a href="/2023/04/25/rust/">
-                  <span class="article-title">rust</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-17'>
-                <a href="/2023/04/17/SpinalHDL/">
-                  <span class="article-title">SpinalHDL</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-17'>
-                <a href="/2023/04/17/scala/">
-                  <span class="article-title">scala</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-07'>
-                <a href="/2023/04/07/Round829-Div2-E/">
-                  <span class="article-title">Round829 Div2 E</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-07'>
-                <a href="/2023/04/07/%E6%B0%91%E6%B3%95%E7%89%A9%E6%9D%83/">
-                  <span class="article-title">民法物权</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-06'>
-                <a href="/2023/04/06/Round821-Div2-D2/">
-                  <span class="article-title">Round821 Div2 D2</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-04'>
-                <a href="/2023/04/04/ICPC-xian-2022-L/">
-                  <span class="article-title">ICPC XiAn 2022 L</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-27'>
-                <a href="/2023/03/27/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/">
-                  <span class="article-title">组合数学</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-25'>
-                <a href="/2023/03/25/unix-commands/">
-                  <span class="article-title">unix commands</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-25'>
-                <a href="/2023/03/25/Round825-Div2-E/">
-                  <span class="article-title">Round825 Div2 E</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-12'>
-                <a href="/2023/03/12/%E5%88%91%E4%BA%8B%E8%AF%89%E8%AE%BC%E6%B3%95/">
-                  <span class="article-title">刑事诉讼法</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-05'>
-                <a href="/2023/03/05/%E7%BB%8F%E6%B5%8E%E6%B3%95/">
-                  <span class="article-title">经济法</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-21'>
-                <a href="/2023/02/21/flow-24-problems/">
-                  <span class="article-title">flow 24 problems</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-20'>
-                <a href="/2023/02/20/luogu2216/">
-                  <span class="article-title">luogu2216</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-08'>
-                <a href="/2023/02/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/">
-                  <span class="article-title">操作系统基础</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-08'>
-                <a href="/2023/02/08/%E4%BA%8C%E5%88%86/">
-                  <span class="article-title">二分</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-08'>
-                <a href="/2023/02/08/nowcoder-multi-7J/">
-                  <span class="article-title">nowcoder multi 7J</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-08'>
-                <a href="/2023/02/08/nowcoder-multi-4A/">
-                  <span class="article-title">nowcoder multi 4A</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-08'>
-                <a href="/2023/02/08/CCPC-guangzhou-2022-M/">
-                  <span class="article-title">CCPC GuangZhou 2022 M</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-08'>
-                <a href="/2023/02/08/nowcoder-multi-add-race-L/">
-                  <span class="article-title">nowcoder multi addrace L</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-08'>
-                <a href="/2023/02/08/hdu7191/">
-                  <span class="article-title">hdu7191</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-08'>
-                <a href="/2023/02/08/nowcoder-multi-add-race-B/">
-                  <span class="article-title">nowcoder multi addrace B</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-08'>
-                <a href="/2023/02/08/hdu7206/">
-                  <span class="article-title">hdu7206</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-07'>
-                <a href="/2023/02/07/Round757-Div2-D2/">
-                  <span class="article-title">Round757 Div2 D2</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-01'>
-                <a href="/2023/02/01/ICPC-shenyang-2022-G/">
-                  <span class="article-title">ICPC ShenYang 2022 G</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-24'>
-                <a href="/2023/01/24/Design-Theory-for-Relational-Databases/">
-                  <span class="article-title">Design Theory for Relational Databases</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-24'>
-                <a href="/2023/01/24/SAM/">
-                  <span class="article-title">SAM</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-24'>
-                <a href="/2023/01/24/LCT/">
-                  <span class="article-title">LCT</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-22'>
-                <a href="/2023/01/22/cache/">
-                  <span class="article-title">cache</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-22'>
-                <a href="/2023/01/22/luogu3953/">
-                  <span class="article-title">luogu3953</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-19'>
-                <a href="/2023/01/19/luogu2605/">
-                  <span class="article-title">luogu2605</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-10'>
-                <a href="/2023/01/10/nikkei2019-qual-F/">
-                  <span class="article-title">nikkei2019 qual F</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-08'>
-                <a href="/2023/01/08/luogu4040/">
-                  <span class="article-title">luogu4040</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-08'>
-                <a href="/2023/01/08/FFT/">
-                  <span class="article-title">FFT</span>
-                </a>
-              </li>
-              
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-09-29 17:32:33</span>
+            <span class="mobile">2023-09-29 17:32</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/cpu/">cpu</a>&nbsp;
+                    </li>
+                
             </ul>
-        </section>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/cache/">cache</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
 
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="访存设计"><a href="#访存设计" class="headerlink" title="访存设计"></a>访存设计</h2><p>我们控制向AXI4总线提交的访存信号必须是严格保序的。</p>
+<p>先考虑只有写的情况，因为MIPS指令集存在cached段与uncached段发生切换的情况，因此cached段的信息必须严格等待uncached数据全部发送完成后再发送，uncached段相同。因此我们写入Write Buffer和Write Queue的行为都必须等本组件有空余，且另一组件为空时才能发生。</p>
+<p>接下来加入读的情况。uncached读应该等待之前的所有读写行为完成才能进行，cached读则应该等待之前所有的写行为和uncached读行为完成才能进行。在顺序处理器中，我们只需要控制cached和uncached读在Write Buffer和Write Queue均为空时才能发送读请求。</p>
+<h2 id="主控制状态机的实现"><a href="#主控制状态机的实现" class="headerlink" title="主控制状态机的实现"></a>主控制状态机的实现</h2><ul>
+<li><p>stateBoot</p>
+</li>
+<li><p>cacheArbitrate</p>
+</li>
+<li><p>cacheInvalidate</p>
+</li>
+<li><p>cachedPreFetch</p>
+</li>
+<li><p>cachedFetch</p>
+</li>
+<li><p>cachedRefill</p>
+</li>
+<li><p>uncachedWait4Empty</p>
+</li>
+<li><p>uncachedRead</p>
+</li>
+<li><p>uncachedWaif4Unfilled</p>
+</li>
+</ul>
+<h3 id="stateBoot"><a href="#stateBoot" class="headerlink" title="stateBoot"></a>stateBoot</h3><p>作为主要的仲裁与控制单元。</p>
+<ul>
+<li><p>没有访存请求：pass</p>
+</li>
+<li><p>CACHE指令：goto cacheAribitrate</p>
+</li>
+<li><p>cached读/写：</p>
+</li>
+<li><ul>
+<li>如果hit，直接读/写，pass</li>
+</ul>
+</li>
+<li><ul>
+<li>如果!hit，且此行!dirty，goto wait4Empty</li>
+</ul>
+</li>
+<li><ul>
+<li>如果!hit，且此行dirty，goto wait4Empty</li>
+</ul>
+</li>
+<li><p>uncached写：</p>
+</li>
+<li><ul>
+<li>如果write queue有空余，直接写入write queue，pass</li>
+</ul>
+</li>
+<li><ul>
+<li>如果write queue满，goto wait4Unfilled</li>
+</ul>
+</li>
+<li><p>uncached读：goto wait4Empty</p>
+</li>
+</ul>
+<h3 id="cacheArbitrate"><a href="#cacheArbitrate" class="headerlink" title="cacheArbitrate"></a>cacheArbitrate</h3><p>本状态选择CACHE指令的调度策略。</p>
+<ul>
+<li><p>需要发生写回行为且dirty时，goto cachedPreFetch</p>
+</li>
+<li><p>不需要发生写回行为时，goto cacheInvalidate</p>
+</li>
+</ul>
+<h3 id="cacheInvalidate"><a href="#cacheInvalidate" class="headerlink" title="cacheInvalidate"></a>cacheInvalidate</h3><p>本状态只有一个周期，目的为使得CACHE指令操作行无效，goto stateBoot</p>
+<h3 id="cachedPreFetch"><a href="#cachedPreFetch" class="headerlink" title="cachedPreFetch"></a>cachedPreFetch</h3><h2 id="write-buffer"><a href="#write-buffer" class="headerlink" title="write buffer"></a>write buffer</h2><h2 id="write-queue"><a href="#write-queue" class="headerlink" title="write queue"></a>write queue</h2>
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> dcache设计与实现</li>
+        <li><strong>Author:</strong> zzyNorthPole</li>
+        <li><strong>Created at:</strong> 2023-09-28 13:51:29</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-09-29 17:32:33
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://zzynorthpole.github.io/2023/09/28/dcache设计与实现/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/cache/">#cache</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/09/24/%E5%9B%BD%E9%99%85%E7%A7%81%E6%B3%95/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">国际私法</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">dcache设计与实现</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BF%E5%AD%98%E8%AE%BE%E8%AE%A1"><span class="nav-text">访存设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E6%8E%A7%E5%88%B6%E7%8A%B6%E6%80%81%E6%9C%BA%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-text">主控制状态机的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#stateBoot"><span class="nav-text">stateBoot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cacheArbitrate"><span class="nav-text">cacheArbitrate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cacheInvalidate"><span class="nav-text">cacheInvalidate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cachedPreFetch"><span class="nav-text">cachedPreFetch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#write-buffer"><span class="nav-text">write buffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#write-queue"><span class="nav-text">write queue</span></a></li></ol>
+
     </div>
 </div>
+            </div>
+        
+    </div>
+</div>
+
 
                 
 
@@ -547,6 +602,23 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-side-tools-container">
@@ -658,6 +730,16 @@
 
 
 <div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
     
 </div>
 
