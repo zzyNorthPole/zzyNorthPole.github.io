@@ -26,7 +26,7 @@
 <meta property="og:description" content="X1处理器">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-09-28T05:51:29.000Z">
-<meta property="article:modified_time" content="2023-09-29T09:32:33.955Z">
+<meta property="article:modified_time" content="2023-10-08T03:28:35.632Z">
 <meta property="article:author" content="ZHU Zhuo-Yuan">
 <meta property="article:tag" content="cache">
 <meta name="twitter:card" content="summary">
@@ -336,8 +336,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-09-29 17:32:33</span>
-            <span class="mobile">2023-09-29 17:32</span>
+            <span class="desktop">2023-10-08 11:28:35</span>
+            <span class="mobile">2023-10-08 11:28</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -383,10 +383,51 @@ mjx-container[display="true"] + br {
             
 
             <div class="article-content markdown-body">
-                <h2 id="访存设计"><a href="#访存设计" class="headerlink" title="访存设计"></a>访存设计</h2><p>我们控制向AXI4总线提交的访存信号必须是严格保序的。</p>
-<p>先考虑只有写的情况，因为MIPS指令集存在cached段与uncached段发生切换的情况，因此cached段的信息必须严格等待uncached数据全部发送完成后再发送，uncached段相同。因此我们写入Write Buffer和Write Queue的行为都必须等本组件有空余，且另一组件为空时才能发生。</p>
-<p>接下来加入读的情况。uncached读应该等待之前的所有读写行为完成才能进行，cached读则应该等待之前所有的写行为和uncached读行为完成才能进行。在顺序处理器中，我们只需要控制cached和uncached读在Write Buffer和Write Queue均为空时才能发送读请求。</p>
-<h2 id="主控制状态机的实现"><a href="#主控制状态机的实现" class="headerlink" title="主控制状态机的实现"></a>主控制状态机的实现</h2><ul>
+                <h2 id="顺序访存单口Cache实现"><a href="#顺序访存单口Cache实现" class="headerlink" title="顺序访存单口Cache实现"></a>顺序访存单口Cache实现</h2><h3 id="访存设计"><a href="#访存设计" class="headerlink" title="访存设计"></a>访存设计</h3><p>我们需要支持miss时的refill操作、CACHE指令写回操作、uncached的read/write操作，为优化访存的时序，我们考虑对写操作单独维护相关结构，使其与流水线并行处理，以得到加速的目的。</p>
+<p>首先考虑只有uncached的read/write操作的情况。读写的过程必须是严格保序的。我们维护write queue来缓存uncached write相关信息，当需要执行uncached read时，必须等到write queue empty时才能发起读请求。</p>
+<p>接下来我们加入CACHE指令写回操作。考虑CACHE指令存在的意义，即将原本缓存在cache中的数据写回到内存中，以提供给DMA等结构使用，保证其一致性。且CACHE指令之后对于该地址的读写行为属性可能由cached切换为uncached。因此必须严格保证CACHE指令和其之后的uncached read/write的顺序。所以我们控制所有的uncached read/write必须等待write buffer为空时才能发起。</p>
+<p>之后我们考虑refill操作，本质上，refill操作是一种例外行为，其目的在于修复不可预知的cache line缺失行为。因此，我们只需要考虑其一致性相关行为。因为存在config0_k0切换导致的uncached段转化为cached段的行为，因此我们需要等待write queue empty时才发起读行为。而当write buffer不为empty状态时，可以推断得知当前指令与写回发生时指令之间没有发生uncached read/write行为，因此write buffer中的cache line是可以做前递的。为提升性能并且保证顺序，我们可以直接使用write buffer中的cache line重填回cache中。</p>
+<p>最后我们单独考虑refill操作中的写回部分，它本质上是一种不可预知的例外行为，理论上它可以发生在任意时刻，因此我们只需要保证对该行的cached refill的重取顺序即可。</p>
+<p>综上所述，我们给出相关依赖关系：</p>
+<ol>
+<li>uncached read依赖write queue empty和write buffer empty</li>
+<li>uncached write依赖write buffer empty</li>
+<li>cached read依赖write queue empty，需要考虑write buffer中的剩余cache line</li>
+<li>cached write无特殊依赖</li>
+</ol>
+<h3 id="queue设计"><a href="#queue设计" class="headerlink" title="queue设计"></a>queue设计</h3><p>我们使用SpinalHDL自带的Mem存储器来实现queue。其中读使用readAsync异步读来实现。</p>
+<p>我们规范queue的读写通过push和pop信号进行控制，他们都是Stream类型，通过valid/ready握手信号与Cache主体部分进行交互。</p>
+<p>为了满足复杂需求的需要，我们还对queue的状态进行了相关的描述。我们记队首为front，队尾为end。</p>
+<table>
+<thead>
+<tr>
+<th>stage</th>
+<th>flag</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>empty</td>
+<td>front == end</td>
+</tr>
+<tr>
+<td>will empty</td>
+<td>front + 1 == end</td>
+</tr>
+<tr>
+<td>full</td>
+<td>end + 1 == front</td>
+</tr>
+<tr>
+<td>will full</td>
+<td>end + 2 == front</td>
+</tr>
+</tbody></table>
+<h3 id="uncached-write设计"><a href="#uncached-write设计" class="headerlink" title="uncached write设计"></a>uncached write设计</h3><p>为了加速uncached write行为，我们使用了write queue。为了使得write queue实现与cached write一样的效果，我们给出如下的设计方式：</p>
+<p>首先经过分析可知，uncached write在一个周期内完成，需要满足write buffer empty且write queue unfilled两个条件。因此我们需要在stage 1进行判断，并对stage 2的行为给出决策。</p>
+<p>针对write buffer empty，我们首先考虑当前时刻stage 2是否即将使得write buffer empty。我们还需要考虑是否会因为下一个阶段的写入导致write buffer的状态从empty转变为remaining。我们通过限制主状态机的行为来严格控制这一行为不会在流水线流动时发生。</p>
+<p>针对write queue unfilled，我们可以预知下一个阶段是否转变为write queue full状态。</p>
+<h3 id="主控制状态机设计"><a href="#主控制状态机设计" class="headerlink" title="主控制状态机设计"></a>主控制状态机设计</h3><p>我们给出如下状态：</p>
+<ul>
 <li><p>stateBoot</p>
 </li>
 <li><p>cacheArbitrate</p>
@@ -406,7 +447,7 @@ mjx-container[display="true"] + br {
 <li><p>uncachedWaif4Unfilled</p>
 </li>
 </ul>
-<h3 id="stateBoot"><a href="#stateBoot" class="headerlink" title="stateBoot"></a>stateBoot</h3><p>作为主要的仲裁与控制单元。</p>
+<h4 id="stateBoot"><a href="#stateBoot" class="headerlink" title="stateBoot"></a>stateBoot</h4><p>作为主要的仲裁与控制单元。</p>
 <ul>
 <li><p>没有访存请求：pass</p>
 </li>
@@ -439,15 +480,15 @@ mjx-container[display="true"] + br {
 <li><p>uncached读：goto wait4Empty</p>
 </li>
 </ul>
-<h3 id="cacheArbitrate"><a href="#cacheArbitrate" class="headerlink" title="cacheArbitrate"></a>cacheArbitrate</h3><p>本状态选择CACHE指令的调度策略。</p>
+<h4 id="cacheArbitrate"><a href="#cacheArbitrate" class="headerlink" title="cacheArbitrate"></a>cacheArbitrate</h4><p>本状态选择CACHE指令的调度策略。</p>
 <ul>
 <li><p>需要发生写回行为且dirty时，goto cachedPreFetch</p>
 </li>
 <li><p>不需要发生写回行为时，goto cacheInvalidate</p>
 </li>
 </ul>
-<h3 id="cacheInvalidate"><a href="#cacheInvalidate" class="headerlink" title="cacheInvalidate"></a>cacheInvalidate</h3><p>本状态只有一个周期，目的为使得CACHE指令操作行无效，goto stateBoot</p>
-<h3 id="cachedPreFetch"><a href="#cachedPreFetch" class="headerlink" title="cachedPreFetch"></a>cachedPreFetch</h3><h2 id="write-buffer"><a href="#write-buffer" class="headerlink" title="write buffer"></a>write buffer</h2><h2 id="write-queue"><a href="#write-queue" class="headerlink" title="write queue"></a>write queue</h2>
+<h4 id="cacheInvalidate"><a href="#cacheInvalidate" class="headerlink" title="cacheInvalidate"></a>cacheInvalidate</h4><p>本状态只有一个周期，目的为使得CACHE指令操作行无效，goto stateBoot</p>
+<h4 id="cachedPreFetch"><a href="#cachedPreFetch" class="headerlink" title="cachedPreFetch"></a>cachedPreFetch</h4>
             </div>
 
             
@@ -459,7 +500,7 @@ mjx-container[display="true"] + br {
         <li><strong>Created at:</strong> 2023-09-28 13:51:29</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-09-29 17:32:33
+                <strong>Updated at:</strong> 2023-10-08 11:28:35
             </li>
         
         <li>
@@ -518,7 +559,7 @@ mjx-container[display="true"] + br {
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">dcache设计与实现</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BF%E5%AD%98%E8%AE%BE%E8%AE%A1"><span class="nav-text">访存设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E6%8E%A7%E5%88%B6%E7%8A%B6%E6%80%81%E6%9C%BA%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-text">主控制状态机的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#stateBoot"><span class="nav-text">stateBoot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cacheArbitrate"><span class="nav-text">cacheArbitrate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cacheInvalidate"><span class="nav-text">cacheInvalidate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cachedPreFetch"><span class="nav-text">cachedPreFetch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#write-buffer"><span class="nav-text">write buffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#write-queue"><span class="nav-text">write queue</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E8%AE%BF%E5%AD%98%E5%8D%95%E5%8F%A3Cache%E5%AE%9E%E7%8E%B0"><span class="nav-text">顺序访存单口Cache实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E5%AD%98%E8%AE%BE%E8%AE%A1"><span class="nav-text">访存设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#queue%E8%AE%BE%E8%AE%A1"><span class="nav-text">queue设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uncached-write%E8%AE%BE%E8%AE%A1"><span class="nav-text">uncached write设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E6%8E%A7%E5%88%B6%E7%8A%B6%E6%80%81%E6%9C%BA%E8%AE%BE%E8%AE%A1"><span class="nav-text">主控制状态机设计</span></a></li></ol></li></ol>
 
     </div>
 </div>
