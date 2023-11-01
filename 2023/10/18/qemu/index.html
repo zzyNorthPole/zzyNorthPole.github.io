@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="zzyNorthPole">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://zzynorthpole.github.io/2023/10/18/qemu/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="qemu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="qemu">
+<meta property="og:url" content="https://zzynorthpole.github.io/2023/10/18/qemu/index.html">
+<meta property="og:site_name" content="zzyNorthPole&#39;s blog">
+<meta property="og:description" content="qemu">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://zzynorthpole.github.io/image/qemu/qemu-kvm-arch.png">
+<meta property="og:image" content="https://zzynorthpole.github.io/image/qemu/glib.png">
+<meta property="article:published_time" content="2023-10-18T02:03:35.000Z">
+<meta property="article:modified_time" content="2023-10-30T16:52:45.016Z">
+<meta property="article:author" content="ZHU Zhuo-Yuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zzynorthpole.github.io/image/qemu/qemu-kvm-arch.png">
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/logo.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.jpg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/logo.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            qemu -
+        
+        zzyNorthPole
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"zzynorthpole.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true},"home_banner":{"enable":true,"image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"zzyNorthPole's blog","subtitle":{"text":["love, believe in and wait for"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/zzyNorthPole"}}},"search":{"enable":false,"preload":true},"categories":{"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"}},"tags":{"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"}}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                zzyNorthPole
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/zzyNorthPole">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/zzyNorthPole">GITHUB</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">qemu</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/logo.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">zzyNorthPole</span>
+                            
+                                <span class="author-label"></span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-10-18 10:03:35</span>
+        <span class="mobile">2023-10-18 10:03</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-10-31 00:52:45</span>
+            <span class="mobile">2023-10-31 00:52</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h3><p>最简单的虚拟机是进程，进程可以看作是一组资源的集合，有自己独立的进程地址空间以及独立的CPU和寄存器</p>
+<p>模拟器有两种实现方式，一种通过解释来实现，即对程序的源ISA指令一条一条进行分析，然后执行相应的ISA指令上的操作。模拟器也可以通过二进制翻译来实现，即将程序中所有的源ISA指令翻译成目标ISA上具有同样功能的指令，然后在目标ISA指令机器上执行。</p>
+<p>高级语言虚拟机则是将源ISA和目标ISA完全分离开，通常会设计一种全新的虚拟ISA并为其定义新的指令集、数据操作、寄存器的使用等类似于物理ISA中的规范。</p>
+<p>进程、模拟器、高级语言虚拟机都是提供指令的执行环境，系统虚拟机提供的是一个完整的系统环境。在系统虚拟化中，管理全局物理资源的软件叫做虚拟机监控器（VMM），VMM利用时分复用或者空分复用的方法将硬件资源在各个虚拟机之间进行分配。</p>
+<h3 id="qemu与kvm"><a href="#qemu与kvm" class="headerlink" title="qemu与kvm"></a>qemu与kvm</h3><p><img lazyload="" src="/images/loading.svg" data-src="/image/qemu/qemu-kvm-arch.png"></p>
+<p>图中左上部分是VMX root模式的应用层，下半部分是VMX root模式的内核层，右上部分是VMX non-root模式运行。VMX root是宿主机模式，VMX non-root是虚拟机模式。</p>
+<h2 id="qemu基本组件"><a href="#qemu基本组件" class="headerlink" title="qemu基本组件"></a>qemu基本组件</h2><h3 id="qemu事件循环机制"><a href="#qemu事件循环机制" class="headerlink" title="qemu事件循环机制"></a>qemu事件循环机制</h3><h4 id="glib事件循环机制"><a href="#glib事件循环机制" class="headerlink" title="glib事件循环机制"></a>glib事件循环机制</h4><p>qemu的事件循环机制基于glib实现。glib实现了完整的事件循环分发机制，在这个机制中有一个主循环负责处理各种事件，事件通过事件源描述。事件源包括各种文件描述符（fd，包括file、pipe、socket）、超时、idle事件等。glib使用GMainLoop结构体来表示一个事件循环，每一个GMainLoop都有一个对应的主上下文GMainContext。事件源用GSource表示，每个GSource可以关联多个fd，每个GSource会管理一个GMainContext，一个GMainContext可以关联多个GSource。</p>
+<p>glib的一个重要特点是能够定义新的事件源类型，可以通过定义一组回调函数来将新的事件源添加到glib事件循环框架中。新的事件源通过两种方式跟主上下文交互，第一种方式是GSourceFuncs中的prepare函数可以设置一个超时时间，以此来决定主事件循环中轮询的超时事件；第二种方式是通过g_source_add_poll函数来添加fd。</p>
+<p>glib主上下文的一次循环包括prepare、query、check、dispatch四个过程。</p>
+<p>prepare：通过g_main_context_prepare调用事件对应的prepare回调函数，做一些准备工作，如果事件已经准备号监听，返回true。</p>
+<p>query：通过g_main_context_query获得实际需要调用poll的文件fd。</p>
+<p>check：当query之后获得了需要进行监听的fd，会调用poll对fd进行监听，当poll返回时调用g_main_context_check将poll的结果传递给主循环，如果fd事件能够被派发就返回true。</p>
+<p>dispatch：通过g_main_context_dispatch可以调用事件源对应事件的处理函数。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/image/qemu/glib.png"></p>
+<h4 id="qemu中的事件循环机制"><a href="#qemu中的事件循环机制" class="headerlink" title="qemu中的事件循环机制"></a>qemu中的事件循环机制</h4><p>qemu的事件循环入口为定义在system/runstate.c中的qemu_main_loop函数：</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">qemu_main_loop</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">{</span><br><span class="line">    <span class="type">int</span> status = EXIT_SUCCESS;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!main_loop_should_exit(&amp;status)) {</span><br><span class="line">        main_loop_wait(<span class="literal">false</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> status;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>主要的执行过程为定义在util/main-loop.c中的main_loop_wait函数：</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">main_loop_wait</span><span class="params">(<span class="type">int</span> nonblocking)</span></span><br><span class="line">{</span><br><span class="line">    ......</span><br><span class="line">    timeout_ns = qemu_soonest_timeout(timeout_ns,</span><br><span class="line">                                      timerlistgroup_deadline_ns(</span><br><span class="line">                                          &amp;main_loop_tlg));</span><br><span class="line"></span><br><span class="line">    ret = os_host_main_loop_wait(timeout_ns);</span><br><span class="line">    ......</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>其核心调用了qemu_soonest_timeout函数计算一个最小的timeout值，使得qemu能够及时处理系统中的定时器中断，同时通过定义在util/main-loop.c中的os_host_main_loop_wait函数进行qemu主循环。</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">os_host_main_loop_wait</span><span class="params">(<span class="type">int64_t</span> timeout)</span></span><br><span class="line">{</span><br><span class="line">    GMainContext *context = g_main_context_default();</span><br><span class="line">    <span class="type">int</span> ret;</span><br><span class="line"></span><br><span class="line">    g_main_context_acquire(context);</span><br><span class="line"></span><br><span class="line">    glib_pollfds_fill(&amp;timeout);</span><br><span class="line"></span><br><span class="line">    qemu_mutex_unlock_iothread();</span><br><span class="line">    replay_mutex_unlock();</span><br><span class="line"></span><br><span class="line">    ret = qemu_poll_ns((GPollFD *)gpollfds-&gt;data, gpollfds-&gt;len, timeout);</span><br><span class="line"></span><br><span class="line">    replay_mutex_lock();</span><br><span class="line">    qemu_mutex_lock_iothread();</span><br><span class="line"></span><br><span class="line">    glib_pollfds_poll();</span><br><span class="line"></span><br><span class="line">    g_main_context_release(context);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>其核心为glib_pollfds_fill、qemu_poll_ns和glib_pollfds_poll三个函数，我们逐一进行查看：</p>
+<ol>
+<li>glib_pollfds_fill函数，定义在util/main-loop.c中。</li>
+</ol>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">glib_pollfds_fill</span><span class="params">(<span class="type">int64_t</span> *cur_timeout)</span></span><br><span class="line">{</span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">    g_main_context_prepare(context, &amp;max_priority);</span><br><span class="line"></span><br><span class="line">    glib_pollfds_idx = gpollfds-&gt;len;</span><br><span class="line">    n = glib_n_poll_fds;</span><br><span class="line">    <span class="keyword">do</span> {</span><br><span class="line">        GPollFD *pfds;</span><br><span class="line">        glib_n_poll_fds = n;</span><br><span class="line">        g_array_set_size(gpollfds, glib_pollfds_idx + glib_n_poll_fds);</span><br><span class="line">        pfds = &amp;g_array_index(gpollfds, GPollFD, glib_pollfds_idx);</span><br><span class="line">        n = g_main_context_query(context, max_priority, &amp;timeout, pfds,</span><br><span class="line">                                 glib_n_poll_fds);</span><br><span class="line">    } <span class="keyword">while</span> (n != glib_n_poll_fds);</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">    *cur_timeout = qemu_soonest_timeout(timeout_ns, *cur_timeout);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>该函数的主要工作是获取所有需要进行监听的fd，并计算一个最小的超时事件。它首先调用了g_main_context_prepare为主循环监听做准备，接着在一个循环中调用g_main_context_query获取需要监听的fd，所有fd保存在全局变量gpollfds数组中，需要监听的fd数量保存在glib_n_poll_fds中，g_main_context_query还会返回fd事件最小的timeout，该值用来与传过来的cur_timeout（定时器的timeout）进行比较，选取较小值作为主循环最大阻塞时间。</p>
+<p>此时os_host_main_loop_wait函数已经获取了所有需要监听的fd，此后它会调用qemu_mutex_unlock_iothread释放qemu大锁（Big Qemu Lock，BQL），再后会调用qemu_poll_ns函数。</p>
+<ol start="2">
+<li>qemu_poll_ns函数，定义在util/qemu-timer.c中。</li>
+</ol>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">qemu_poll_ns</span><span class="params">(GPollFD *fds, guint nfds, <span class="type">int64_t</span> timeout)</span></span><br><span class="line">{</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> CONFIG_PPOLL</span></span><br><span class="line">    <span class="keyword">if</span> (timeout &lt; <span class="number">0</span>) {</span><br><span class="line">        <span class="keyword">return</span> ppoll((<span class="keyword">struct</span> pollfd *)fds, nfds, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="keyword">struct</span> timespec ts;</span><br><span class="line">        <span class="type">int64_t</span> tvsec = timeout / <span class="number">1000000000LL</span>;</span><br><span class="line">        ......</span><br><span class="line">        ts.tv_sec = tvsec;</span><br><span class="line">        ts.tv_nsec = timeout % <span class="number">1000000000LL</span>;</span><br><span class="line">        <span class="keyword">return</span> ppoll((<span class="keyword">struct</span> pollfd *)fds, nfds, &amp;ts, <span class="literal">NULL</span>);</span><br><span class="line">    }</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="keyword">return</span> g_poll(fds, nfds, qemu_timeout_ns_to_ms(timeout));</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>其形式参数表中的三个参数表意如下：fds表示要监听的fd数组，nfds表示fds数组的长度，timeout表示g_poll最多阻塞的时间。g_poll是一个跨平台的poll函数，用于监听文件上发生的事件。</p>
+<p>qemu_poll_ns的调用会阻塞主线程，当函数返回后，要么表示文件fd上发生了事件，要么发生了超时。接下来会调用glib_pollfds_poll函数。</p>
+<ol start="3">
+<li>glib_pollfds_poll函数，定义在util/main-loop.c中</li>
+</ol>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">glib_pollfds_poll</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">{</span><br><span class="line">    GMainContext *context = g_main_context_default();</span><br><span class="line">    GPollFD *pfds = &amp;g_array_index(gpollfds, GPollFD, glib_pollfds_idx);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (g_main_context_check(context, max_priority, pfds, glib_n_poll_fds)) {</span><br><span class="line">        g_main_context_dispatch(context);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>该函数调用glib框架的g_main_context_check检测事件，然后调用g_main_context_dispatch进行事件的分发。</p>
+<p>以上是qemu效仿glib实现的主循环，但是主循环存在一些缺陷，在主机使用多CPU的情况下伸缩性受到限制，同时主循环使用了qemu全局互斥锁，从而导致vCPU线程和主循环锁竞争，使得性能下降。为解决这一问题，qemu引入了iothread事件循环，将一些io操作分配给iothread，从而提高了I/O性能。</p>
+<h4 id="qemu自定义事件源"><a href="#qemu自定义事件源" class="headerlink" title="qemu自定义事件源"></a>qemu自定义事件源</h4><p>首先解释事件源。qemu在运行过程中会注册一些感兴趣的事件，设置其对应的处理函数。事件源分为两类，第一类是类型为AioContext的自定义事件源，第二类是glib标准事件源，它们都通过g_source_attach函数添加。此外，glib内部库也会插入在事件循环中自己使用的fd。</p>
+<p>glib事件源可以添加多个事件fd，对应的AioContext中都会有相应的记录。glib框架在执行iohandler_ctx的分发函数时，会遍历其上所有的fd，如果某个fd上的数据准备好了，就会调用相应的回调函数。而每个事件源本身也有一个fd，当添加一个fd到该事件源时，整个glib主循环都会监听事件源本身fd。任何一个fd准备好事件之后都可以唤醒主循环。除了上述所提及的三种不同的fd，qemu主循环还会监听系统调用SYS_signalfd创建的用来处理信号的fd。</p>
+<p>有两种特殊的AioContext，分别为qemu_aio_context和iohandler_ctx。前者主要用于处理qemu中块设备相关的异步I/O请求通知，后者用于处理qemu中的各类事件通知，这些事件通知包括信号处理的fd、tap设备的fd、VFIO设备对应的中断通知等。</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> qemu</li>
+        <li><strong>Author:</strong> zzyNorthPole</li>
+        <li><strong>Created at:</strong> 2023-10-18 10:03:35</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-10-31 00:52:45
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://zzynorthpole.github.io/2023/10/18/qemu/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/10/18/HPCA22-CANDLES-Gudaparthi/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">HPCA22 CANDLES Gudaparthi</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/09/28/dcache%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">dcache设计与实现</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">qemu</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-text">虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#qemu%E4%B8%8Ekvm"><span class="nav-text">qemu与kvm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qemu%E5%9F%BA%E6%9C%AC%E7%BB%84%E4%BB%B6"><span class="nav-text">qemu基本组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#qemu%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6"><span class="nav-text">qemu事件循环机制</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">zzyNorthPole</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.2</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
