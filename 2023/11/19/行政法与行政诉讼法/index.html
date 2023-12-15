@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="zzyNorthPole">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://zzynorthpole.github.io/2023/11/19/行政法与行政诉讼法/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="梅扬《行政法与行政诉讼法》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="行政法与行政诉讼法">
+<meta property="og:url" content="https://zzynorthpole.github.io/2023/11/19/%E8%A1%8C%E6%94%BF%E6%B3%95%E4%B8%8E%E8%A1%8C%E6%94%BF%E8%AF%89%E8%AE%BC%E6%B3%95/index.html">
+<meta property="og:site_name" content="zzyNorthPole&#39;s blog">
+<meta property="og:description" content="梅扬《行政法与行政诉讼法》">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-19T12:30:18.000Z">
+<meta property="article:modified_time" content="2023-11-20T06:20:42.144Z">
+<meta property="article:author" content="ZHU Zhuo-Yuan">
+<meta property="article:tag" content="行政法">
+<meta property="article:tag" content="行政诉讼法">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/logo.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.jpg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/logo.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            行政法与行政诉讼法 -
+        
+        zzyNorthPole
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        zzyNorthPole
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    window.config = {"hostname":"zzynorthpole.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"zzyNorthPole's blog","subtitle":{"text":["love, believe in and wait for"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.0","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/zzyNorthPole"}}},"search":{"enable":false,"preload":true},"categories":{"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"}},"tags":{"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"}}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                zzyNorthPole
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/zzyNorthPole">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/zzyNorthPole">GITHUB</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">43</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">38</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">行政法与行政诉讼法</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/logo.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">zzyNorthPole</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1"></span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-11-19 20:30:18</span>
+        <span class="mobile">2023-11-19 20:30:18</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-11-20 14:20:42</span>
+            <span class="mobile">2023-11-20 14:20:42</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%B3%95%E5%8F%8C%E8%AF%BE%E7%A8%8B/">法双课程</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E8%A1%8C%E6%94%BF%E6%B3%95/">行政法</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E8%A1%8C%E6%94%BF%E8%AF%89%E8%AE%BC%E6%B3%95/">行政诉讼法</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h2 id="导论"><a href="#导论" class="headerlink" title="导论"></a>导论</h2><h3 id="行政"><a href="#行政" class="headerlink" title="行政"></a>行政</h3><h4 id="行政的概念"><a href="#行政的概念" class="headerlink" title="行政的概念"></a>行政的概念</h4><ul>
+<li><p>二分法：政治(决策)与行政(执行)</p>
+</li>
+<li><p>三分法：立法、行政、司法</p>
+</li>
+</ul>
+<h4 id="行政的种类"><a href="#行政的种类" class="headerlink" title="行政的种类"></a>行政的种类</h4><ul>
+<li>事务性质不同：公行政(国家、社会)与私行政(企业、组织)</li>
+</ul>
+<h3 id="行政法"><a href="#行政法" class="headerlink" title="行政法"></a>行政法</h3><h4 id="行政法的概念"><a href="#行政法的概念" class="headerlink" title="行政法的概念"></a>行政法的概念</h4><p>行政法：行政法是调整人与国家机关之间社会关系的法律规范的总称，在人与国家机关之间分配权利与义务。</p>
+<p>行政法是调整公行政的法律规范的总称，不调整私行政。</p>
+<h4 id="行政法的渊源"><a href="#行政法的渊源" class="headerlink" title="行政法的渊源"></a>行政法的渊源</h4><ul>
+<li>正式渊源：宪法、法律、法规、规章(法律体系)</li>
+<li>非正式渊源：法理、惯例、判例</li>
+</ul>
+<h4 id="行政法的特点"><a href="#行政法的特点" class="headerlink" title="行政法的特点"></a>行政法的特点</h4><ul>
+<li>形式广泛且数量众多</li>
+<li>实体法规范变动频繁(行政改革：外放、下沉、综合)</li>
+<li>实体法与程序法并存(三大行为法；程序法典尚未编纂)</li>
+</ul>
+<h4 id="行政法的历史"><a href="#行政法的历史" class="headerlink" title="行政法的历史"></a>行政法的历史</h4><p>《组织法》、《公务员法》、《行政处罚法》、《行政许可法》、《行政强制法》、《行政复议法》、《行政诉讼法》、《国家赔偿法》</p>
+<h4 id="行政法的原则"><a href="#行政法的原则" class="headerlink" title="行政法的原则"></a>行政法的原则</h4><ul>
+<li><strong>最主要的：行政合法性原则和行政合理性原则</strong></li>
+</ul>
+<blockquote>
+<p>两者关系：行政合法性原则是行政合理性原则的前提和基础</p>
+</blockquote>
+<ul>
+<li>法律优先原则：下位法要服从上位法</li>
+</ul>
+<blockquote>
+<p>法律冲突的三种情形：下位法与上位法；特别法与一般法；新法与旧法</p>
+</blockquote>
+<ul>
+<li>法律保留原则：关于<strong>人身自由、司法制度等重要事项</strong>，必须由全国立法机关通过法律的方式予以规定，行政机关不得代为规定，否则其合法性将受到质疑</li>
+</ul>
+<blockquote>
+<p>《立法法》第8条和第9条：相对保留与绝对保留</p>
+</blockquote>
+<ul>
+<li><p>信赖保护原则：基于法律秩序的安定性以及行政机关的公信力，当相对人对行政机关的行政行为形成合理依赖，且这种合理依赖值得被保护时，行政机关不得随意更改、撤销这些行政行为或者因法定原因更改、撤销行政行为后要合理补偿相对人的信赖损失</p>
+</li>
+<li><p>比例原则：国家机关基于公共利益的需要对公民权利进行限制，所采取的手段应当有助于行政目的的实现，在此前提下尽可能地将该手段的<strong>负面效果降到最低</strong>，实现公私法益平衡</p>
+</li>
+</ul>
+<blockquote>
+<p>适当性、必要性、均衡性</p>
+</blockquote>
+<blockquote>
+<p>解决的是行政机关的手段裁量权问题</p>
+</blockquote>
+<ul>
+<li>正当程序原则：任何人不得做自己案件的法官；任何人在遭受不利时，有申辩的权利</li>
+</ul>
+<blockquote>
+<p>表明身份、二人以上、说明理由、听取陈述与申辩、告知权利</p>
+</blockquote>
+<ul>
+<li><p>高效便民原则</p>
+</li>
+<li><p>行政应急原则：自由与效率</p>
+</li>
+</ul>
+<blockquote>
+<p>权利行使的范围、行使的主体、行使的程序和救济</p>
+</blockquote>
+<ul>
+<li>权责一致原则：责任政府、终身责任追究</li>
+</ul>
+<h4 id="行政法的品格"><a href="#行政法的品格" class="headerlink" title="行政法的品格"></a>行政法的品格</h4><ul>
+<li><p>保权论：重组织，轻程序(苏联)</p>
+</li>
+<li><p>控权论：重程序，轻组织(英美)</p>
+</li>
+<li><p>平衡论：两者兼重(罗豪才)</p>
+</li>
+</ul>
+<h3 id="行政法学"><a href="#行政法学" class="headerlink" title="行政法学"></a>行政法学</h3><h4 id="行政法学的概念"><a href="#行政法学的概念" class="headerlink" title="行政法学的概念"></a>行政法学的概念</h4><ul>
+<li>行政法学是研究行政法理论、规范、实践的学科</li>
+</ul>
+<h4 id="行政法学的体系"><a href="#行政法学的体系" class="headerlink" title="行政法学的体系"></a>行政法学的体系</h4><ul>
+<li><p>横向维度：中国、外国、比较</p>
+</li>
+<li><p>纵向维度：总论、分论</p>
+</li>
+<li><p>内部：基本理论、行政组织、行政行为、行政程序、行政救济</p>
+</li>
+</ul>
+<h4 id="行政法学的地位"><a href="#行政法学的地位" class="headerlink" title="行政法学的地位"></a>行政法学的地位</h4><ul>
+<li><p>部门法学：独立的研究对象</p>
+</li>
+<li><p>公法学：涉及权力与权利的关系</p>
+</li>
+<li><p>仅次于宪法的公法学</p>
+</li>
+</ul>
+<h4 id="行政法学与其他学科的关系"><a href="#行政法学与其他学科的关系" class="headerlink" title="行政法学与其他学科的关系"></a>行政法学与其他学科的关系</h4><blockquote>
+<p>辨析</p>
+</blockquote>
+<ul>
+<li><p>行政学：行政法学偏向程序、救济等法治层面；行政学总体较为偏向于规律、模型等技术层面</p>
+</li>
+<li><p>经济法学、环境法学：后两者是行政法学基本理论在各行政部门中的具体应用，实质上属于行政法学分论范畴</p>
+</li>
+</ul>
+<h3 id="学习行政法"><a href="#学习行政法" class="headerlink" title="学习行政法"></a>学习行政法</h3><ul>
+<li><p>王名扬 英国行政法、美国行政法、比较行政法</p>
+</li>
+<li><p>三大组织法、三大行为法、三大救济法</p>
+</li>
+</ul>
+<h2 id="行政组织法"><a href="#行政组织法" class="headerlink" title="行政组织法"></a>行政组织法</h2><h3 id="行政权"><a href="#行政权" class="headerlink" title="行政权"></a>行政权</h3><h4 id="行政权的概念"><a href="#行政权的概念" class="headerlink" title="行政权的概念"></a>行政权的概念</h4><ul>
+<li><p>内涵：组织、管理、执行公共事务的权力</p>
+</li>
+<li><p>特征：来源法定性、目的公共性、主体多元性、方式多样性</p>
+</li>
+</ul>
+<blockquote>
+<p>辨析：行政权与政权；行政权与行政职权</p>
+</blockquote>
+<h4 id="行政权的解构"><a href="#行政权的解构" class="headerlink" title="行政权的解构"></a>行政权的解构</h4><ul>
+<li><p>两板块：管辖权、裁量权</p>
+</li>
+<li><p>三板块：决策权、执行权、监督权</p>
+</li>
+<li><p>四板块：事权、组织权、人权、财权</p>
+</li>
+</ul>
+<h4 id="行政权的配置原则"><a href="#行政权的配置原则" class="headerlink" title="行政权的配置原则"></a>行政权的配置原则</h4><ul>
+<li><p>合法性原则</p>
+<ul>
+<li><p>主体合法</p>
+</li>
+<li><p>权限合法</p>
+</li>
+<li><p>目的合法</p>
+</li>
+</ul>
+</li>
+<li><p>分工合作原则</p>
+</li>
+<li><p>效率原则</p>
+<ul>
+<li><p>行政与立法：立法确保权威，行政追求快速</p>
+</li>
+<li><p>行政与司法：司法讲究不告不理，行政追求积极主动</p>
+</li>
+<li><p>公正乃行政之灵魂，效率乃行政之生命</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="行政权的转移"><a href="#行政权的转移" class="headerlink" title="行政权的转移"></a>行政权的转移</h4><ul>
+<li><p>缘由：</p>
+<ul>
+<li><p>行政事务日益增多且日趋专门化</p>
+</li>
+<li><p>合法</p>
+</li>
+<li><p>效果好</p>
+</li>
+</ul>
+</li>
+<li><p>行政授权(所有权)</p>
+<ul>
+<li><p>行政机构：如派出所</p>
+</li>
+<li><p>企事业单位</p>
+</li>
+<li><p>社会团体：足协</p>
+</li>
+</ul>
+</li>
+<li><p>行政委托(使用权)</p>
+<ul>
+<li><p>有法律规定，可以委托</p>
+</li>
+<li><p>在本职权范围内进行委托</p>
+</li>
+<li><p>委托对象符合法定条件</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>辨析：行政授权与行政委托</p>
+<ul>
+<li>性质：所有权 vs 履行权</li>
+<li>方式：法律法规规章 vs 委托协议</li>
+<li>后果：自己承担 vs 委托人承担</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>行政委托的责任和纠纷解决</p>
+<ul>
+<li><p>政府责任：契约、监管、担保</p>
+</li>
+<li><p>纠纷解决：<strong>三对法律关系、三种纠纷解决路径</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="行政组织相关概念"><a href="#行政组织相关概念" class="headerlink" title="行政组织相关概念"></a>行政组织相关概念</h3><h4 id="行政组织"><a href="#行政组织" class="headerlink" title="行政组织"></a>行政组织</h4><ul>
+<li><p>行政组织：行政机关+行政机构</p>
+<ul>
+<li><p>行政机关：独立职权、名称、编制</p>
+</li>
+<li><p>行政机构：内设机构+派出机构+临时机构</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="行政主体"><a href="#行政主体" class="headerlink" title="行政主体"></a>行政主体</h4><ul>
+<li><p>学理概念：目的是确定行政诉讼被告</p>
+</li>
+<li><p>构成要件：行政职权要件、法律人格要件、责任能力要件</p>
+</li>
+<li><p>基本类型：中央与地方、综合与专业、职权与授权</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="辨析：行政组织、行政机关、行政机构、行政主体"><a href="#辨析：行政组织、行政机关、行政机构、行政主体" class="headerlink" title="辨析：行政组织、行政机关、行政机构、行政主体"></a>辨析：行政组织、行政机关、行政机构、行政主体</h4></blockquote>
+<ul>
+<li><p>行政主体与行政机关：行政机关是最主要的行政主体；行政机关并非始终是行政主体；行政机关并非唯一行政主体</p>
+</li>
+<li><p>行政主体并非都是行政组织，行政组织也并非都是行政主体，两者是一种相互交叉的关系</p>
+</li>
+</ul>
+<h4 id="谁主体，谁被告问题"><a href="#谁主体，谁被告问题" class="headerlink" title="谁主体，谁被告问题"></a>谁主体，谁被告问题</h4><h3 id="中央行政组织法"><a href="#中央行政组织法" class="headerlink" title="中央行政组织法"></a>中央行政组织法</h3><h4 id="国务院的地位"><a href="#国务院的地位" class="headerlink" title="国务院的地位"></a>国务院的地位</h4><ul>
+<li><p>横向：最高国家权力机关的执行机关</p>
+</li>
+<li><p>纵向：最高国家行政机关</p>
+</li>
+</ul>
+<h4 id="国务院的职权"><a href="#国务院的职权" class="headerlink" title="国务院的职权"></a>国务院的职权</h4><p>立法权、规范权、领导权、人事权、重大事项决定权、经济文化、社会、卫生等事业的管理权、监督权等</p>
+<h4 id="国务院基本工作制度"><a href="#国务院基本工作制度" class="headerlink" title="国务院基本工作制度"></a>国务院基本工作制度</h4><ul>
+<li><p>双向负责制</p>
+<ul>
+<li>行政机构：国务院总理向全国人大、国家主席负责</li>
+</ul>
+</li>
+<li><p>总理责任制</p>
+<ul>
+<li>总理领导国务院全体工作人员、机构开展工作，国务院全体人员、机构向总理负责，总理代表国务院向全国人民代表大会负责</li>
+</ul>
+</li>
+<li><p>会议制</p>
+<ul>
+<li>国务院全体会议和国务院常务会议</li>
+</ul>
+</li>
+</ul>
+<h4 id="国务院构成"><a href="#国务院构成" class="headerlink" title="国务院构成"></a>国务院构成</h4><h4 id="国务院机构改革-裁撤、整合、新设"><a href="#国务院机构改革-裁撤、整合、新设" class="headerlink" title="国务院机构改革(裁撤、整合、新设)"></a>国务院机构改革(裁撤、整合、新设)</h4><h3 id="地方行政组织法"><a href="#地方行政组织法" class="headerlink" title="地方行政组织法"></a>地方行政组织法</h3><h4 id="地方行政组织法-1"><a href="#地方行政组织法-1" class="headerlink" title="地方行政组织法"></a>地方行政组织法</h4><ul>
+<li>地方行政组织法、民族区域自治法、特别行政区基本法</li>
+</ul>
+<h3 id="行政组织关联法"><a href="#行政组织关联法" class="headerlink" title="行政组织关联法"></a>行政组织关联法</h3><h4 id="公务员录用制度"><a href="#公务员录用制度" class="headerlink" title="公务员录用制度"></a>公务员录用制度</h4><ul>
+<li><p>积极条件：</p>
+<ul>
+<li><p>国籍条件</p>
+</li>
+<li><p>年龄条件，18岁</p>
+</li>
+<li><p>公务员必须拥护宪法，拥护党的领导和社会主义制度</p>
+</li>
+<li><p>品行要求，良好的政治素质和道德品行</p>
+</li>
+<li><p>身体条件，正常旅行团职责的身体条件和心理素质</p>
+</li>
+<li><p>文化程度和工作能力要求</p>
+</li>
+<li><p>兜底条款，法律规定的其他条件</p>
+</li>
+</ul>
+</li>
+<li><p>消极条件</p>
+<ul>
+<li><p>因犯罪受过刑事处罚的</p>
+</li>
+<li><p>被开除中国共产党党籍的</p>
+</li>
+<li><p>被开除公职的</p>
+</li>
+<li><p>被依法列为失信联合惩戒对象的</p>
+</li>
+<li><p>有法律规定不得录用为公务员的其他情形的</p>
+</li>
+</ul>
+</li>
+<li><p>程序</p>
+<ul>
+<li><p>发布招考公告</p>
+</li>
+<li><p>资格审查</p>
+</li>
+<li><p>考试</p>
+</li>
+<li><p>报考资格复核、考察和体检</p>
+</li>
+<li><p>公示，不少于5工作日</p>
+</li>
+<li><p>任职，试用期为1年</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="公务员管理制度"><a href="#公务员管理制度" class="headerlink" title="公务员管理制度"></a>公务员管理制度</h4><ul>
+<li><p>义务与权利：</p>
+<ul>
+<li><p>义务：恪守职业道德</p>
+</li>
+<li><p>权利：对机关工作和领导人员提出批评和建议</p>
+</li>
+</ul>
+</li>
+<li><p>职位与职级：</p>
+<ul>
+<li><p>职位</p>
+</li>
+<li><p>职级：正国级、副国级、正部级、副部级、正厅级、副厅级、正处级、副处级、正科级、副科级。公务员职级序列在厅局级一下设置</p>
+</li>
+</ul>
+</li>
+<li><p>培训、交流与回避</p>
+<ul>
+<li><p>培训</p>
+</li>
+<li><p>交流：调任、转任、挂职锻炼</p>
+</li>
+<li><p>回避：任职回避、地域回避、公务回避</p>
+</li>
+</ul>
+</li>
+<li><p>考核与奖励</p>
+<ul>
+<li><p>考核：优秀、称职、基本称职、不称职</p>
+</li>
+<li><p>奖励：嘉奖、记三等功、记二等功、记一等功、授予称号</p>
+</li>
+</ul>
+</li>
+<li><p>监督与惩处</p>
+<ul>
+<li><p>公务员执行公务时，认为上级的决定的命令有错误的，可以向上级提出改正或者撤销该决定或命令的意见；上级不改变该决定或命令，或要求立即执行的，公务员应该执行该决定或者命令，执行的后果由上级负责，公务员不承担责任；但是公务员执行明显违法的决定或者命令的，应当依法承担相应责任</p>
+</li>
+<li><p>处分：警告、记过、记大过、降级、撤职、开除</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="公务员退出制度"><a href="#公务员退出制度" class="headerlink" title="公务员退出制度"></a>公务员退出制度</h4><ul>
+<li><p>辞职</p>
+<ul>
+<li><p>不得辞去公职</p>
+<ul>
+<li><p>未满最低服务年限</p>
+</li>
+<li><p>涉及国家秘密等特殊职位任职或者离开上述职位不满国家规定的脱密期限的</p>
+</li>
+<li><p>重要公务尚未处理完毕且须由本人继续处理的</p>
+</li>
+<li><p>正在接受审计、纪律审查、监察调查、或者涉嫌犯罪司法程序尚未终结的</p>
+</li>
+<li><p>兜底条款</p>
+</li>
+</ul>
+</li>
+<li><p>辞去领导职务</p>
+<ul>
+<li><p>工作变动</p>
+</li>
+<li><p>个人或者其他原因</p>
+</li>
+<li><p>工作严重失误、失职造成重大损失或者恶劣社会影响的，或者对重大事故负有领导责任的，引咎辞职</p>
+</li>
+<li><p>对于应当引咎辞职或者因其他原因不再适合担任领导职务，有权机关应责令其辞去领导职务</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>辞退</p>
+<ul>
+<li><p>辞退的情况</p>
+<ul>
+<li><p>在年度考核中，连续两年被确定为不称职的</p>
+</li>
+<li><p>不胜任现职工作，又不接受其他安排的</p>
+</li>
+<li><p>因所在机关调整、撤销、合并或者所见编制员额需要调整工作，本人拒绝合理安排的</p>
+</li>
+<li><p>不履行公务员义务，不遵守法律和公务员纪律，经教育仍无转变，不适合继续在机关工作，又不宜给予开除处分的</p>
+</li>
+<li><p>旷工或者因公外出、请假期满无正当理由逾期不归连续超过15天，或者一年内累计超过30天的</p>
+</li>
+</ul>
+</li>
+<li><p>不得辞退的情形：</p>
+<ul>
+<li><p>因公致残</p>
+</li>
+<li><p>患病或者负伤，在规定的医疗期内的</p>
+</li>
+<li><p>女性公务员在孕期、产假、哺乳期内的</p>
+</li>
+<li><p>兜底</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>退休</p>
+<ul>
+<li><p>工作年限满30年</p>
+</li>
+<li><p>距离国家规定的退休年龄不足5年，且工作年限满20年</p>
+</li>
+<li><p>提前退休的其他情形</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="行政组织法问题与完善"><a href="#行政组织法问题与完善" class="headerlink" title="行政组织法问题与完善"></a>行政组织法问题与完善</h3><h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ul>
+<li><p>行政组织法依然是行政法律制度的薄弱环节</p>
+<ul>
+<li><p>定职责、定机构、定编制的“三定”规定是实践中各级行政机关组织机构、配置资源的重要依据</p>
+</li>
+<li><p>部分行政组织法比较滞后</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="完善"><a href="#完善" class="headerlink" title="完善"></a>完善</h4><ul>
+<li><p>对国务院组织法进行全面修改</p>
+</li>
+<li><p>将地方人民政府组织法从现有的地方各级人民代表大会和地方各级人民政府组织法中分离出来，制定单独的地方各级人民政府组织法</p>
+</li>
+<li><p>尽快制定颁布国务院编制法和地方各级人民政府编制法</p>
+</li>
+</ul>
+<h2 id="行政行为基本理论"><a href="#行政行为基本理论" class="headerlink" title="行政行为基本理论"></a>行政行为基本理论</h2><h3 id="行政行为的概念"><a href="#行政行为的概念" class="headerlink" title="行政行为的概念"></a>行政行为的概念</h3><p>行为主体说：凡是行政机关作出的行为都是行政行为</p>
+<p>公法行为说：运用行政权力，产生公法效果(通说)</p>
+<p>行政行为一般具有<strong>单方性</strong>和<strong>强制性</strong>的特征</p>
+<h3 id="行政行为的分类"><a href="#行政行为的分类" class="headerlink" title="行政行为的分类"></a>行政行为的分类</h3><ul>
+<li><p>抽象行政行为和具体行政行为</p>
+<ul>
+<li><p>最基本、最重要的分类</p>
+</li>
+<li><p>行为对象不同：不特定的vs特定的</p>
+</li>
+<li><p>行为效力不同：溯后，反复适用vs溯前，一次性</p>
+</li>
+<li><p>行为功能不同：一般行为模式vs具体实现、执行</p>
+</li>
+<li><blockquote>
+<p>辨析：抽象行政行为与以规范形式出现，但针对特定个人或群体的具体行政行为</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>羁束行政行为与裁量行政行为</p>
+<ul>
+<li><p>依据受法律的拘束程度作出的划分</p>
+</li>
+<li><p>决定裁量(是否可以)和选择裁量(类型、幅度)</p>
+</li>
+<li><p>羁束行政行为只存在合法性问题，裁量行政行为既存在合法性问题，也存在合理性问题</p>
+</li>
+</ul>
+</li>
+<li><p>依职权行政行为与依申请行政行为</p>
+<ul>
+<li>依行政行为是否可由行政机关主动为之所作出的划分</li>
+</ul>
+</li>
+<li><p>内部行政行为与外部行政行为</p>
+<ul>
+<li><p>依行政行为发生场域的不同所作出的划分</p>
+</li>
+<li><p>内部行政行为排除司法救济</p>
+</li>
+</ul>
+</li>
+<li><p>行政作为与行政不作为</p>
+<ul>
+<li><p>依行政行为的存在方式或表现形式所作的划分</p>
+</li>
+<li><p>行政不作为的构成要件：作为义务的存在；能够作为；没有作为</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="行政行为的效力"><a href="#行政行为的效力" class="headerlink" title="行政行为的效力"></a>行政行为的效力</h3><h4 id="行政行为的效力内容"><a href="#行政行为的效力内容" class="headerlink" title="行政行为的效力内容"></a>行政行为的效力内容</h4><ul>
+<li><p>公定力、确定力、拘束力、执行力</p>
+<ul>
+<li><p>公定力</p>
+<ul>
+<li><p>概念：行政行为一经作出，即对任何人都具有被推定合法有效并获得尊重和信任的法律效力</p>
+</li>
+<li><p>对象：任何人，对世的</p>
+</li>
+<li><p>性质：推定的效力，事后可以被推翻</p>
+</li>
+<li><p>内容：起诉不停止执行</p>
+</li>
+</ul>
+</li>
+<li><p>确定力</p>
+<ul>
+<li><p>概念：行政行为一经作出，就具有不受任意改变的法律效力，即内容确定</p>
+</li>
+<li><p>对象：行政主体(实质确定力)；相对人(形式确定力)</p>
+</li>
+<li><p>性质：两者都是相对的，并不是绝对的</p>
+</li>
+</ul>
+</li>
+<li><p>拘束力</p>
+<ul>
+<li><p>概念：行政行为一经作出，就具有约束和限制行政主体和行政相对人行为的法律效力</p>
+</li>
+<li><p>对象：行政主体和行政相对人</p>
+</li>
+</ul>
+</li>
+<li><p>执行力</p>
+<ul>
+<li><p>概念：行政行为一经作出，就具有要求行政主体和行政相对人对其内容予以完全实现的法律效力</p>
+</li>
+<li><p>对象：行政主体和行政相对人</p>
+</li>
+<li><p>内容：自行履行和强制履行</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="行政行为的效力要件"><a href="#行政行为的效力要件" class="headerlink" title="行政行为的效力要件"></a>行政行为的效力要件</h4><ul>
+<li><p>行政行为的成立要件：什么是行政行为</p>
+<ul>
+<li><p>主体要件：行政权能的存在</p>
+</li>
+<li><p>权力要件：行政权力的运用</p>
+</li>
+<li><p>内容要件：法律效果的存在</p>
+</li>
+<li><p>形式要件：表示行为的存在</p>
+</li>
+</ul>
+</li>
+<li><p>行政行为的生效要件：行政行为 什么时候生效</p>
+</li>
+<li><p>行政行为的有效要件：行政行为是否合法</p>
+</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 行政法与行政诉讼法</li>
+        <li><strong>Author:</strong> zzyNorthPole</li>
+        <li><strong>Created at
+                :</strong> 2023-11-19 20:30:18</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2023-11-20 14:20:42
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://zzynorthpole.github.io/2023/11/19/行政法与行政诉讼法/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/%E8%A1%8C%E6%94%BF%E6%B3%95/">#行政法</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/%E8%A1%8C%E6%94%BF%E8%AF%89%E8%AE%BC%E6%B3%95/">#行政诉讼法</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/12/10/git-lfs/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">git lfs</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/11/01/luogu1973/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">luogu1973</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">行政法与行政诉讼法</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E8%AE%BA"><span class="nav-text">导论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E6%94%BF"><span class="nav-text">行政</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E6%94%BF%E6%B3%95"><span class="nav-text">行政法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E6%94%BF%E6%B3%95%E5%AD%A6"><span class="nav-text">行政法学</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%A1%8C%E6%94%BF%E6%B3%95"><span class="nav-text">学习行政法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E6%94%BF%E7%BB%84%E7%BB%87%E6%B3%95"><span class="nav-text">行政组织法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E6%94%BF%E6%9D%83"><span class="nav-text">行政权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E6%94%BF%E7%BB%84%E7%BB%87%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-text">行政组织相关概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E5%A4%AE%E8%A1%8C%E6%94%BF%E7%BB%84%E7%BB%87%E6%B3%95"><span class="nav-text">中央行政组织法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%B0%E6%96%B9%E8%A1%8C%E6%94%BF%E7%BB%84%E7%BB%87%E6%B3%95"><span class="nav-text">地方行政组织法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E6%94%BF%E7%BB%84%E7%BB%87%E5%85%B3%E8%81%94%E6%B3%95"><span class="nav-text">行政组织关联法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E6%94%BF%E7%BB%84%E7%BB%87%E6%B3%95%E9%97%AE%E9%A2%98%E4%B8%8E%E5%AE%8C%E5%96%84"><span class="nav-text">行政组织法问题与完善</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E6%94%BF%E8%A1%8C%E4%B8%BA%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA"><span class="nav-text">行政行为基本理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E6%94%BF%E8%A1%8C%E4%B8%BA%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">行政行为的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E6%94%BF%E8%A1%8C%E4%B8%BA%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-text">行政行为的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E6%94%BF%E8%A1%8C%E4%B8%BA%E7%9A%84%E6%95%88%E5%8A%9B"><span class="nav-text">行政行为的效力</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">zzyNorthPole</a>
+        </div>
+        
+            <script data-swup-reload-script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.0</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>
